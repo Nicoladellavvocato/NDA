@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicola Dell'Avvocato — Aerospace Engineer · Mission Analysis</title>
+<meta name="description" content="Nicola Dell'Avvocato — aerospace engineer focused on mission analysis and flight dynamics (RocketPy), for space missions and aerospace defence. Live ISS tracker.">
+<meta property="og:title" content="Nicola Dell'Avvocato — Aerospace Engineer">
+<meta property="og:description" content="Mission analysis & flight dynamics for space and defence.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0C10;
+    --panel:#11151C;
+    --panel-2:#161B23;
+    --line:rgba(255,255,255,0.09);
+    --line-2:rgba(255,255,255,0.16);
+    --t1:#FFFFFF;
+    --t2:#C2C9D4;
+    --t3:#7E8794;
+    --accent:#5AB4FF;
+    --accent-soft:rgba(90,180,255,0.16);
+    --font-display:"Saira",system-ui,sans-serif;
+    --font-body:"Saira",system-ui,sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+    --container:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-body);background:var(--bg);color:var(--t2);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  .container{max-width:var(--container);margin:0 auto;padding:0 32px;}
+  a{color:inherit;}
+  ::selection{background:var(--accent);color:#000;}
+
+  .eyebrow{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"//";color:var(--t3);opacity:0.7;}
+
+  @keyframes beacon{0%{box-shadow:0 0 0 0 rgba(90,180,255,0.5);}70%{box-shadow:0 0 0 7px rgba(90,180,255,0);}100%{box-shadow:0 0 0 0 rgba(90,180,255,0);}}
+
+  /* ---------- nav ---------- */
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s ease,border-color .3s ease;border-bottom:1px solid transparent;}
+  header.nav.scrolled{background:rgba(10,12,16,0.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;}
+  .brand{font-family:var(--font-display);font-weight:700;font-size:0.96rem;letter-spacing:0.14em;text-transform:uppercase;color:#fff;}
+  .brand .x{color:var(--accent);}
+  .nav-links{display:flex;gap:30px;align-items:center;}
+  .nav-links a{font-family:var(--font-display);font-weight:600;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;color:#fff;opacity:0.85;transition:opacity .2s,color .2s;}
+  .nav-links a:hover,.nav-links a:focus-visible{opacity:1;color:var(--accent);}
+  .nav-right{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;color:#fff;display:flex;align-items:center;gap:9px;text-transform:uppercase;}
+  .nav-right .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:beacon 2.6s infinite;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;height:100vh;min-height:660px;background:#02040A;overflow:hidden;display:flex;align-items:flex-end;}
+  .stars{position:absolute;inset:0;z-index:0;}
+  .stars .tw{animation:tw 3.6s ease-in-out infinite;}
+  @keyframes tw{50%{opacity:0.12;}}
+  .atmo{position:absolute;left:50%;transform:translateX(-50%);bottom:20vh;width:160vw;height:42vh;z-index:1;
+    background:radial-gradient(60% 100% at 50% 100%,rgba(90,180,255,0.30),rgba(60,130,210,0.10) 42%,transparent 68%);filter:blur(14px);pointer-events:none;}
+  .planet{position:absolute;left:50%;transform:translateX(-50%);bottom:-36vh;width:200vw;height:70vh;z-index:1;border-radius:100% 100% 0 0;
+    background:radial-gradient(80% 130% at 50% 0%,#1a3a5c 0%,#0d2236 22%,#06131f 46%,#03080e 70%);}
+  .planet::before{content:"";position:absolute;left:0;right:0;top:-1px;height:3px;border-radius:100% 100% 0 0;
+    background:linear-gradient(90deg,transparent,rgba(160,210,255,0.6) 22%,rgba(195,225,255,0.9) 50%,rgba(160,210,255,0.6) 78%,transparent);
+    box-shadow:0 0 22px 3px rgba(90,180,255,0.55);}
+  .scrim{position:absolute;inset:0;z-index:2;background:
+    linear-gradient(to top,rgba(2,4,10,0.88) 0%,rgba(2,4,10,0.35) 32%,transparent 62%),
+    radial-gradient(90% 70% at 18% 88%,rgba(2,4,10,0.7),transparent 70%);}
+  .hero-inner{position:relative;z-index:3;width:100%;padding-bottom:9vh;}
+  .hero-eye{font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:#fff;opacity:0.92;margin-bottom:22px;}
+  .hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(3rem,9.2vw,7.4rem);line-height:0.92;letter-spacing:-0.01em;text-transform:uppercase;color:#fff;text-shadow:0 2px 40px rgba(0,0,0,0.5);}
+  .hero h1 .ln{display:block;overflow:hidden;}
+  .hero h1 .ln span{display:block;transform:translateY(104%);animation:rise 1s cubic-bezier(.2,.7,.2,1) forwards;}
+  .hero h1 .ln:nth-child(2) span{animation-delay:.09s;}
+  @keyframes rise{to{transform:translateY(0);}}
+  .hero .tag{font-size:1.18rem;line-height:1.5;color:var(--t2);max-width:46ch;margin:26px 0 34px;}
+  .hero .tag em{color:#fff;font-style:normal;}
+  .cta-row{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .btn{font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;padding:14px 26px;border:1px solid rgba(255,255,255,0.55);color:#fff;display:inline-flex;align-items:center;gap:11px;transition:all .2s ease;}
+  .btn:hover,.btn:focus-visible{background:#fff;color:#000;border-color:#fff;}
+  .tlink{font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;color:var(--accent);display:inline-flex;align-items:center;gap:9px;}
+  .tlink:hover,.tlink:focus-visible{color:#fff;}
+  .arr{transition:transform .2s ease;}
+  .btn:hover .arr,.tlink:hover .arr{transform:translateX(4px);}
+
+  /* ---------- section base ---------- */
+  section.block{padding:96px 0;border-top:1px solid var(--line);}
+  .block-head{margin-bottom:48px;max-width:780px;}
+  .block-head h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,3rem);letter-spacing:0;text-transform:uppercase;line-height:1.02;margin-top:18px;color:#fff;}
+  .block-head p{color:var(--t2);margin-top:16px;font-size:1.06rem;}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ---------- ISS tracker ---------- */
+  .panel{position:relative;background:var(--panel);border:1px solid var(--line-2);}
+  .panel .corner{position:absolute;width:10px;height:10px;border:1px solid var(--accent);z-index:2;}
+  .panel .corner.tl{top:-1px;left:-1px;border-right:0;border-bottom:0;}
+  .panel .corner.tr{top:-1px;right:-1px;border-left:0;border-bottom:0;}
+  .panel .corner.bl{bottom:-1px;left:-1px;border-right:0;border-top:0;}
+  .panel .corner.br{bottom:-1px;right:-1px;border-left:0;border-top:0;}
+  .panel-head{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);}
+  .live-ind{display:flex;align-items:center;gap:9px;color:var(--accent);}
+  #issDot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:beacon 2.4s infinite;}
+  #issDot.lost{background:#E2552F;animation:none;}
+  .tracker-body{display:grid;grid-template-columns:1.65fr 1fr;}
+  .map-wrap{border-right:1px solid var(--line);padding:16px;}
+  #issMap{width:100%;height:auto;display:block;background:#070B11;border:1px solid var(--line);}
+  .map-bg{fill:#070B11;}
+  .grat line{stroke:rgba(255,255,255,0.06);stroke-width:1;}
+  .equator{stroke:rgba(90,180,255,0.32);stroke-width:1;stroke-dasharray:5 5;}
+  .meridian{stroke:rgba(255,255,255,0.10);stroke-width:1;stroke-dasharray:5 5;}
+  .maplab{font-family:var(--font-mono);font-size:9px;fill:var(--t3);}
+  .trail{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0.55;}
+  .foot{fill:rgba(90,180,255,0.07);stroke:rgba(90,180,255,0.28);stroke-width:1;}
+  .m-glow{fill:rgba(90,180,255,0.35);}
+  .m-core{fill:#fff;}
+  .m-ping{fill:none;stroke:var(--accent);stroke-width:1.4;animation:issping 2.2s ease-out infinite;}
+  @keyframes issping{0%{opacity:0.85;r:4;}80%,100%{opacity:0;r:24;}}
+  .telem{display:flex;flex-direction:column;}
+  .trow{display:flex;justify-content:space-between;align-items:baseline;padding:15px 20px;border-bottom:1px solid var(--line);}
+  .trow .k{font-family:var(--font-mono);font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);}
+  .trow .v{font-family:var(--font-mono);font-size:1.0rem;color:#fff;}
+  .trow .v.acc{color:var(--accent);}
+  .panel-foot{padding:13px 20px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--t3);text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+
+  /* ---------- profile ---------- */
+  .profile-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start;}
+  .profile-prose p{font-size:1.14rem;color:var(--t2);margin-bottom:18px;line-height:1.66;}
+  .profile-prose p strong{color:#fff;font-weight:600;}
+  .spec{border:1px solid var(--line-2);background:var(--panel);}
+  .spec .spec-top{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);padding:13px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;}
+  .spec dl{display:grid;grid-template-columns:auto 1fr;}
+  .spec dt,.spec dd{padding:12px 16px;font-family:var(--font-mono);font-size:0.8rem;border-bottom:1px solid var(--line);}
+  .spec dt{color:var(--t3);letter-spacing:0.04em;border-right:1px solid var(--line);white-space:nowrap;}
+  .spec dd{color:#fff;text-align:right;}
+  .spec dl>div{display:contents;}
+  .spec .last dt,.spec .last dd{border-bottom:0;}
+
+  /* ---------- focus ---------- */
+  .focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .fcard{background:var(--panel);border:1px solid var(--line-2);padding:28px 26px 30px;transition:transform .25s ease,border-color .25s ease;}
+  .fcard:hover{transform:translateY(-4px);border-color:var(--accent);}
+  .fcard .num{font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);letter-spacing:0.12em;}
+  .fcard h3{font-family:var(--font-display);font-weight:600;font-size:1.28rem;margin:14px 0 10px;color:#fff;}
+  .fcard p{color:var(--t2);font-size:0.97rem;line-height:1.6;}
+  .fcard .ic{height:34px;width:34px;margin-bottom:6px;}
+  .fcard .ic svg{width:100%;height:100%;stroke:var(--accent);fill:none;stroke-width:1.6;}
+
+  /* ---------- stack ---------- */
+  .stack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:42px 56px;}
+  .stack-col h4{font-family:var(--font-mono);font-size:0.74rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--t3);padding-bottom:13px;margin-bottom:16px;border-bottom:1px solid var(--line-2);}
+  .tags{display:flex;flex-wrap:wrap;gap:9px;}
+  .tag{font-family:var(--font-mono);font-size:0.8rem;color:var(--t2);border:1px solid var(--line-2);background:transparent;padding:8px 13px;transition:all .18s ease;}
+  .tag:hover{border-color:var(--accent);color:#fff;}
+
+  /* ---------- work ---------- */
+  .record{background:var(--panel);border:1px solid var(--line-2);padding:32px;margin-bottom:18px;display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:start;transition:border-color .2s ease;}
+  .record:hover{border-color:var(--accent);}
+  .record .desig{font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);letter-spacing:0.06em;padding-top:4px;}
+  .record h3{font-family:var(--font-display);font-weight:600;font-size:1.36rem;color:#fff;margin-bottom:6px;}
+  .record .meta{font-family:var(--font-mono);font-size:0.76rem;color:var(--t3);margin-bottom:14px;letter-spacing:0.03em;}
+  .record p{color:var(--t2);font-size:0.99rem;max-width:64ch;line-height:1.62;}
+  .record .toolset{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px;}
+  .record .toolset span{font-family:var(--font-mono);font-size:0.72rem;color:var(--t3);border:1px solid var(--line);padding:4px 9px;}
+  .record .metric{text-align:right;white-space:nowrap;}
+  .record .metric .big{font-family:var(--font-display);font-weight:800;font-size:1.7rem;color:#fff;line-height:1;}
+  .record .metric .lab{font-family:var(--font-mono);font-size:0.64rem;color:var(--t3);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;}
+
+  /* ---------- education ---------- */
+  .edu{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .ecard{background:var(--panel);border:1px solid var(--line-2);padding:28px;}
+  .ecard .yr{font-family:var(--font-mono);font-size:0.74rem;color:var(--accent);letter-spacing:0.06em;}
+  .ecard h3{font-family:var(--font-display);font-weight:600;font-size:1.24rem;color:#fff;margin:10px 0 6px;}
+  .ecard .inst{font-family:var(--font-mono);font-size:0.82rem;color:var(--t3);margin-bottom:10px;}
+  .ecard p{color:var(--t2);font-size:0.95rem;}
+  .ecard p em{color:#fff;font-style:italic;}
+
+  /* ---------- contact ---------- */
+  .contact{padding:104px 0;border-top:1px solid var(--line);}
+  .contact-inner{display:grid;grid-template-columns:1fr auto;gap:50px;align-items:end;}
+  .contact h2{font-family:var(--font-display);font-weight:800;font-size:clamp(2.4rem,5.4vw,4rem);letter-spacing:0;text-transform:uppercase;line-height:0.98;color:#fff;}
+  .contact h2 em{color:var(--accent);font-style:normal;}
+  .contact p{color:var(--t2);margin-top:18px;max-width:48ch;font-size:1.05rem;}
+  .contact-links{display:flex;flex-direction:column;border:1px solid var(--line-2);min-width:300px;}
+  .clink{padding:17px 22px;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.84rem;text-decoration:none;color:#fff;border-bottom:1px solid var(--line);transition:background .18s ease,color .18s ease;}
+  .clink:last-child{border-bottom:0;}
+  .clink:hover{background:var(--accent);color:#000;}
+  .clink .ar{color:var(--t3);transition:transform .2s ease,color .2s ease;}
+  .clink:hover .ar{color:#000;transform:translate(3px,-3px);}
+
+  footer.foot{padding:32px 0;border-top:1px solid var(--line);}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.72rem;color:var(--t3);letter-spacing:0.04em;flex-wrap:wrap;gap:10px;text-transform:uppercase;}
+
+  a:focus-visible,.btn:focus-visible,.tag:focus-visible,.clink:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+
+  @media(max-width:900px){
+    .profile-grid{grid-template-columns:1fr;gap:38px;}
+    .focus-grid{grid-template-columns:1fr;}
+    .stack-grid{grid-template-columns:1fr;gap:34px;}
+    .edu{grid-template-columns:1fr;}
+    .record{grid-template-columns:auto 1fr;}
+    .record .metric{grid-column:1 / -1;text-align:left;border-top:1px solid var(--line);padding-top:14px;}
+    .record .metric .lab{display:inline;margin-left:8px;}
+    .contact-inner{grid-template-columns:1fr;align-items:start;}
+    .contact-links{min-width:0;}
+  }
+  @media(max-width:820px){
+    .tracker-body{grid-template-columns:1fr;}
+    .map-wrap{border-right:0;border-bottom:1px solid var(--line);}
+  }
+  @media(max-width:680px){
+    .container{padding:0 20px;}
+    .nav-links{display:none;}
+    section.block{padding:64px 0;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;}
+    .hero h1 .ln span{transform:none;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="brand">NICOLA DELL'<span class="x">A</span>VVOCATO</div>
+    <nav class="nav-links">
+      <a href="#tracker">live iss</a>
+      <a href="#profile">profile</a>
+      <a href="#focus">focus</a>
+      <a href="#work">work</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="atmo" aria-hidden="true"></div>
+  <div class="planet" aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-eye">AEROSPACE ENGINEER — POLITECNICO DI TORINO</div>
+    <h1>
+      <span class="ln"><span>Nicola</span></span>
+      <span class="ln"><span>Dell'Avvocato</span></span>
+    </h1>
+    <p class="tag">Mission analysis and flight dynamics — modelling the <em>trajectories</em> that carry payloads to space and define a mission.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn">View work <span class="arr">→</span></a>
+      <a href="#tracker" class="tlink">Track the ISS live <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ISS TRACKER ============ -->
+<section class="block" id="tracker">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Mission Control</span>
+      <h2>ISS — Live orbital telemetry.</h2>
+      <p>Real-time position of the International Space Station, computed from live orbital data and refreshed every few seconds — latitude, longitude, altitude and ground speed, plotted as it crosses the planet.</p>
+    </div>
+
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>ISS (ZARYA) · NORAD 25544</span>
+        <span class="live-ind"><span id="issDot"></span><span id="issState">ACQUIRING</span></span>
+      </div>
+      <div class="tracker-body">
+        <div class="map-wrap">
+          <svg id="issMap" viewBox="0 0 720 360" role="img" aria-label="World map showing the live ISS position">
+            <rect class="map-bg" x="0" y="0" width="720" height="360"/>
+            <g class="grat" id="grat"></g>
+            <line class="equator" x1="0" y1="180" x2="720" y2="180"/>
+            <line class="meridian" x1="360" y1="0" x2="360" y2="360"/>
+            <g class="maplab" id="maplab"></g>
+            <path id="issTrail" class="trail" d=""/>
+            <g id="issMarker" transform="translate(360 180)">
+              <circle id="issFoot" class="foot" r="34"/>
+              <circle class="m-glow" r="9"/>
+              <circle class="m-ping" r="4"/>
+              <circle class="m-core" r="3.2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="telem">
+          <div class="trow"><span class="k">Latitude</span><span class="v acc" id="lat">—</span></div>
+          <div class="trow"><span class="k">Longitude</span><span class="v acc" id="lon">—</span></div>
+          <div class="trow"><span class="k">Altitude</span><span class="v" id="alt">—</span></div>
+          <div class="trow"><span class="k">Ground speed</span><span class="v" id="vel">—</span></div>
+          <div class="trow"><span class="k">Sunlight</span><span class="v" id="vis">—</span></div>
+          <div class="trow"><span class="k">Time</span><span class="v" id="utc">—</span></div>
+        </div>
+      </div>
+      <div class="panel-foot">
+        <span>Source: live orbital data · TLE / SGP4</span>
+        <span>Refresh: 5 s</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROFILE ============ -->
+<section class="block" id="profile">
+  <div class="container">
+    <div class="profile-grid">
+      <div class="profile-prose reveal">
+        <span class="eyebrow">Profile</span>
+        <div style="height:18px"></div>
+        <p>I'm Nicola Dell'Avvocato, an aerospace engineering student at Politecnico di Torino, set on the systems that reach space and hold the edge in defence — <strong>launch vehicles, satellites, missiles and uncrewed systems</strong>.</p>
+        <p>My direction is mission analysis and flight dynamics: modelling trajectories and mission performance with Python tools like RocketPy. It sits on real hands-on engineering — I designed and built an F450 quadcopter from airframe to firmware, and ran experimental fibre-optic structural testing on a composite specimen for my thesis. I like problems where simulation meets hardware and the numbers have to hold.</p>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-top"><span>DATASHEET</span><span>REV. C</span></div>
+        <dl>
+          <div><dt>Discipline</dt><dd>Aerospace Eng.</dd></div>
+          <div><dt>Interests</dt><dd>Space · Defence</dd></div>
+          <div><dt>Focus</dt><dd>Mission Analysis</dd></div>
+          <div><dt>Tools</dt><dd>RocketPy · Python</dd></div>
+          <div><dt>University</dt><dd>Polit. di Torino</dd></div>
+          <div><dt>Status</dt><dd>Final-year · 2026</dd></div>
+          <div class="last"><dt>Languages</dt><dd>IT · EN C1 · ES B2</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOCUS ============ -->
+<section class="block" id="focus">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Focus Areas</span>
+      <h2>Where I'm headed.</h2>
+      <p>Mission analysis is the direction; space and defence are the destination — backed by hands-on engineering.</p>
+    </div>
+    <div class="focus-grid">
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 19 Q 11 2 21 9"/><circle cx="3" cy="19" r="1.5"/><circle cx="21" cy="9" r="1.5"/></svg></div>
+        <div class="num">01</div>
+        <h3>Mission Analysis &amp; Flight Dynamics</h3>
+        <p>Modelling trajectories and mission performance — liftoff, apogee, orbit — with simulation tools like RocketPy. Turning mission requirements into numbers.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9.5" ry="4.5" transform="rotate(-22 12 12)"/><circle cx="18.5" cy="8.6" r="1.7"/></svg></div>
+        <div class="num">02</div>
+        <h3>Space Systems &amp; Satellites</h3>
+        <p>Launch vehicles, satellites and the missions that carry them — from ascent to orbit. The arena I most want to work in.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 L19 19 L12 15.5 L5 19 Z"/></svg></div>
+        <div class="num">03</div>
+        <h3>Aerospace Defence</h3>
+        <p>Missiles, combat aircraft and uncrewed systems — high-performance vehicles where trajectory, performance and reliability decide the outcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STACK ============ -->
+<section class="block" id="stack">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Technical Stack</span>
+      <h2>Tools &amp; methods.</h2>
+      <p>What I work with — from mission simulation to hardware and firmware.</p>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-col reveal">
+        <h4>Programming &amp; Analysis</h4>
+        <div class="tags"><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">C++</span><span class="tag">LaTeX</span></div>
+      </div>
+      <div class="stack-col reveal">
+        <h4>Mission Analysis &amp; Simulation</h4>
+        <div class="tags"><span class="tag">RocketPy</span><span class="tag">Trajectory simulation</span><span class="tag">Flight dynamics</span><span class="tag">Numerical methods</span></div>
+      </div>
+      <div class="stack-col reveal">
+        <h4>Design &amp; Hardware</h4>
+        <div class="tags"><span class="tag">CAD software</span><span class="tag">Additive manufacturing</span><span class="tag">Embedded electronics</span><span class="tag">FEM / FEA</span></div>
+      </div>
+      <div class="stack-col reveal">
+        <h4>Testing &amp; Instrumentation</h4>
+        <div class="tags"><span class="tag">CFRP composites</span><span class="tag">FBG sensors</span><span class="tag">Experimental testing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section class="block" id="work">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Selected Work</span>
+      <h2>Projects &amp; research.</h2>
+      <p>Hands-on engineering, experimental research and a live orbital tool — the work behind the profile.</p>
+    </div>
+
+    <div class="record reveal">
+      <div class="desig">PRJ.01</div>
+      <div>
+        <h3>F450 Quadcopter — Design &amp; Build</h3>
+        <div class="meta">PERSONAL PROJECT · HARDWARE &amp; FIRMWARE</div>
+        <p>Designed and built an F450-class quadcopter from the airframe up. Structural parts were produced by additive manufacturing and assembled around the F450 frame; I integrated the flight controller, ESCs, power distribution and sensors, and developed the control and telemetry logic in C++. The project spanned mechanical design, embedded electronics and real-time firmware — the full hardware-to-software loop.</p>
+        <div class="toolset"><span>C++</span><span>Additive manufacturing</span><span>Embedded electronics</span><span>CAD</span></div>
+      </div>
+      <div class="metric"><div class="big">F450</div><div class="lab">design · build · code</div></div>
+    </div>
+
+    <div class="record reveal">
+      <div class="desig">PRJ.02</div>
+      <div>
+        <h3>FBG Sensors for Structural Health Monitoring of CFRP</h3>
+        <div class="meta">BSc THESIS · POLITECNICO DI TORINO · 2026</div>
+        <p>My BSc thesis: experimental structural health monitoring of a carbon-fibre (CFRP) coupon instrumented with Fibre Bragg Grating optical sensors. I prepared and instrumented the specimen, ran load tests and analysed the optical-sensor response to measure strain and detect the onset of damage — hands-on work in composite materials, fibre-optic sensing and experimental validation.</p>
+        <div class="toolset"><span>FBG</span><span>CFRP</span><span>Experimental testing</span><span>MATLAB</span></div>
+      </div>
+      <div class="metric"><div class="big">FBG</div><div class="lab">experimental SHM</div></div>
+    </div>
+
+    <div class="record reveal">
+      <div class="desig">PRJ.03</div>
+      <div>
+        <h3>ISS Live Tracker</h3>
+        <div class="meta">PERSONAL TOOL · ORBITAL TRACKING — SHOWN LIVE ABOVE</div>
+        <p>A real-time tracker for the International Space Station, built into this site. It reads live orbital data and continuously computes the ISS sub-point — latitude, longitude, altitude and ground speed — plotting its position and trail across the planet. It grew out of my work computing satellite positions in Python with skyfield (TLE and SGP4 propagation).</p>
+        <div class="toolset"><span>JavaScript</span><span>Orbital mechanics</span><span>skyfield</span><span>Live data</span></div>
+      </div>
+      <div class="metric"><div class="big">ISS</div><div class="lab">live telemetry</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section class="block" id="education">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Education &amp; Languages</span>
+      <h2>Background.</h2>
+    </div>
+    <div class="edu">
+      <div class="ecard reveal">
+        <div class="yr">2023 — 2026 · GRADUATING JULY 2026</div>
+        <h3>BSc Aerospace Engineering</h3>
+        <div class="inst">Politecnico di Torino · Turin, Italy</div>
+        <p>Final grade 110/110 · EQF level 6. Thesis: <em>FBG sensors for structural health monitoring — experimental validation of a CFRP coupon.</em></p>
+      </div>
+      <div class="ecard reveal">
+        <div class="yr">LANGUAGES</div>
+        <h3>Italian · English · Spanish</h3>
+        <div class="inst">CEFR proficiency</div>
+        <p>Italian (native) · English C1 · Spanish B2 — comfortable studying and working in English across international, technical settings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="container contact-inner">
+    <div class="reveal">
+      <span class="eyebrow">Contact</span>
+      <div style="height:18px"></div>
+      <h2>Let's plot the next <em>trajectory</em>.</h2>
+      <p>Open to graduate roles and internships in mission analysis, space systems and defence. Email is the fastest way to reach me.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a class="clink" href="mailto:nicoladellavvocato@gmail.com">Email <span class="ar">↗</span></a>
+      <a class="clink" href="https://www.linkedin.com/in/nicola-dell-avvocato-713887328" target="_blank" rel="noopener">LinkedIn <span class="ar">↗</span></a>
+      <a class="clink" href="https://github.com/Nicoladellavvocato" target="_blank" rel="noopener">GitHub <span class="ar">↗</span></a>
+      <a class="clink" href="cv.pdf" download>Download CV <span class="ar">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container foot-inner">
+    <span>© 2026 Nicola Dell'Avvocato</span>
+    <span>Mission Analysis // Space &amp; Defence</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- starfield ----
+  var sky=document.getElementById('stars');
+  if(sky){
+    var frag=document.createDocumentFragment();
+    for(var i=0;i<150;i++){
+      var s=document.createElement('span');
+      var size=Math.random()<0.85?1:2;
+      s.style.cssText='position:absolute;left:'+(Math.random()*100).toFixed(2)+'%;top:'+(Math.random()*78).toFixed(2)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;opacity:'+(0.15+Math.random()*0.7).toFixed(2)+';';
+      if(Math.random()<0.16) s.className='tw';
+      frag.appendChild(s);
+    }
+    sky.appendChild(frag);
+  }
+
+  // ---- nav scrolled ----
+  var nav=document.querySelector('.nav');
+  window.addEventListener('scroll',function(){
+    if(nav) nav.classList.toggle('scrolled', window.scrollY>40);
+  },{passive:true});
+
+  // ---- reveal ----
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.12, rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // ---- map graticule + labels ----
+  var grat=document.getElementById('grat');
+  if(grat){
+    var g='';
+    for(var x=60;x<720;x+=60) g+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="360"/>';
+    for(var y=60;y<360;y+=60) g+='<line x1="0" y1="'+y+'" x2="720" y2="'+y+'"/>';
+    grat.innerHTML=g;
+  }
+  var maplab=document.getElementById('maplab');
+  if(maplab){
+    var lons=[[-180,4],[-90,182],[0,362],[90,542],[180,712]];
+    var lats=[[60,64],[0,184],[-60,304]];
+    var ml='';
+    lons.forEach(function(p){ ml+='<text x="'+p[1]+'" y="354" text-anchor="middle">'+p[0]+'\u00B0</text>'; });
+    lats.forEach(function(p){ ml+='<text x="6" y="'+p[1]+'">'+p[0]+'\u00B0</text>'; });
+    maplab.innerHTML=ml;
+  }
+
+  // ---- UTC clock ----
+  function tickUTC(){
+    var el=document.getElementById('utc');
+    if(el){ el.textContent=new Date().toISOString().slice(11,19)+' UTC'; }
+  }
+  tickUTC(); setInterval(tickUTC,1000);
+
+  // ---- ISS live position ----
+  var ISS_URL='https://api.wheretheiss.at/v1/satellites/25544';
+  var W=720, H=360, trail=[];
+  function setText(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+  function fmtLat(v){ return Math.abs(v).toFixed(4)+'\u00B0 '+(v>=0?'N':'S'); }
+  function fmtLon(v){ return Math.abs(v).toFixed(4)+'\u00B0 '+(v>=0?'E':'W'); }
+  function proj(lat,lon){ return [ (lon+180)/360*W, (90-lat)/180*H ]; }
+  function setStatus(ok){
+    var d=document.getElementById('issDot'), t=document.getElementById('issState');
+    if(!d||!t) return;
+    if(ok){ d.classList.remove('lost'); t.textContent='LIVE'; }
+    else { d.classList.add('lost'); t.textContent='SIGNAL LOST — RETRYING'; }
+  }
+  function drawTrail(){
+    var p=document.getElementById('issTrail'); if(!p) return;
+    var d='', prev=null;
+    for(var i=0;i<trail.length;i++){
+      var pt=trail[i];
+      if(prev && Math.abs(pt[0]-prev[0])>W/2){ d+=' M '+pt[0].toFixed(1)+' '+pt[1].toFixed(1); }
+      else { d+=(d?' L ':'M ')+pt[0].toFixed(1)+' '+pt[1].toFixed(1); }
+      prev=pt;
+    }
+    p.setAttribute('d', d);
+  }
+  function updateISS(){
+    fetch(ISS_URL,{cache:'no-store'}).then(function(r){
+      if(!r.ok) throw new Error('http');
+      return r.json();
+    }).then(function(d){
+      var lat=parseFloat(d.latitude), lon=parseFloat(d.longitude);
+      setText('lat', fmtLat(lat));
+      setText('lon', fmtLon(lon));
+      setText('alt', parseFloat(d.altitude).toFixed(1)+' km');
+      setText('vel', Math.round(parseFloat(d.velocity)).toLocaleString('en-US')+' km/h');
+      setText('vis', (d.visibility==='daylight'?'DAYLIGHT':'ECLIPSE'));
+      var c=proj(lat,lon);
+      var m=document.getElementById('issMarker');
+      if(m) m.setAttribute('transform','translate('+c[0].toFixed(1)+' '+c[1].toFixed(1)+')');
+      var fp=document.getElementById('issFoot');
+      if(fp && d.footprint){ var rpx=((parseFloat(d.footprint)/2)/111)*2; fp.setAttribute('r', Math.max(8,Math.min(60,rpx)).toFixed(1)); }
+      trail.push(c); if(trail.length>90) trail.shift(); drawTrail();
+      setStatus(true);
+    }).catch(function(){ setStatus(false); });
+  }
+  updateISS(); setInterval(updateISS,5000);
+})();
+</script>
+</body>
+</html>
