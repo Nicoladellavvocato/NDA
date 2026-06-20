@@ -145,7 +145,9 @@ section.block{padding:96px 0;border-top:1px solid var(--line);position:relative;
 .map-wrap{border-right:1px solid var(--line);padding:16px;}
 #issMap{width:100%;height:auto;display:block;background:#070B11;border:1px solid var(--line);}
 .map-bg{fill:#070B11;}
-.grat line{stroke:rgba(255,255,255,0.06);stroke-width:1;}
+.map-img{opacity:0.62;filter:brightness(0.72) saturate(0.85);}
+.map-scrim{fill:rgba(7,11,17,0.42);}
+.grat line{stroke:rgba(255,255,255,0.08);stroke-width:1;}
 .equator{stroke:rgba(90,180,255,0.32);stroke-width:1;stroke-dasharray:5 5;}
 .meridian{stroke:rgba(255,255,255,0.10);stroke-width:1;stroke-dasharray:5 5;}
 .maplab{font-family:var(--font-mono);font-size:9px;fill:var(--t3);}
@@ -160,6 +162,8 @@ section.block{padding:96px 0;border-top:1px solid var(--line);position:relative;
 .trow .k{font-family:var(--font-mono);font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);}
 .trow .v{font-family:var(--font-mono);font-size:1.0rem;color:#fff;}
 .trow .v.acc{color:var(--accent);}
+.maplink{font-family:var(--font-mono);font-size:0.84rem;color:var(--accent);text-decoration:none;transition:color .18s ease;}
+.maplink:hover,.maplink:focus-visible{color:#fff;text-decoration:underline;}
 .panel-foot{padding:13px 20px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--t3);text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 
 /* ---------- profile ---------- */
@@ -274,6 +278,7 @@ a:focus-visible,.btn:focus-visible,.tag:focus-visible,.clink:focus-visible,butto
    ================================================================= */
 .proj-hero{position:relative;min-height:62vh;display:flex;align-items:flex-end;padding:120px 0 56px;overflow:hidden;border-bottom:1px solid var(--line);background-color:#04070d;}
 .proj-hero.iss{background-image:var(--veil),var(--img-iss);background-size:cover;background-position:center;}
+.proj-hero.ascent{background-image:var(--veil),var(--img-launch);background-size:cover;background-position:center 28%;}
 /* blueprint grid for the build project */
 .proj-hero.bp{
   background-color:#070b11;
@@ -337,6 +342,25 @@ a:focus-visible,.btn:focus-visible,.tag:focus-visible,.clink:focus-visible,butto
 .pn .k{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);}
 .pn .t{font-family:var(--font-display);font-weight:600;font-size:1.1rem;margin-top:8px;color:#fff;}
 .pn.next{text-align:right;}
+
+/* =================================================================
+   TIMELINE (story page)
+   ================================================================= */
+.timeline{position:relative;max-width:760px;margin:0 auto;}
+.timeline::before{content:"";position:absolute;left:14px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--accent),rgba(90,180,255,0.12));}
+.tl-item{position:relative;padding:0 0 28px 52px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{content:"";position:absolute;left:7px;top:4px;width:16px;height:16px;background:var(--bg);border:2px solid var(--accent);transform:rotate(45deg);box-shadow:0 0 0 4px rgba(10,12,16,0.65);}
+.tl-item.now::before{background:var(--accent);animation:beacon 2.6s infinite;}
+.tl-year{font-family:var(--font-mono);font-size:0.74rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:9px;}
+.tl-card{display:block;border:1px solid var(--line-2);background:var(--panel);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);padding:22px 24px;text-decoration:none;transition:border-color .2s ease,transform .2s ease;}
+a.tl-card:hover,a.tl-card:focus-visible{border-color:var(--accent);transform:translateY(-3px);}
+.tl-card h3{font-family:var(--font-display);font-weight:600;font-size:1.22rem;color:#fff;margin-bottom:5px;}
+.tl-card .inst{font-family:var(--font-mono);font-size:0.78rem;color:var(--t3);margin-bottom:11px;}
+.tl-card p{color:var(--t2);font-size:0.99rem;line-height:1.62;margin:0;}
+.tl-card .grade{display:inline-block;font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);border:1px solid var(--accent);padding:3px 10px;margin-top:13px;letter-spacing:0.06em;}
+.tl-card .more{display:inline-block;font-family:var(--font-mono);font-size:0.74rem;color:var(--accent);margin-top:13px;}
+a.tl-card:hover .more{text-decoration:underline;}
 
 /* =================================================================
    RESPONSIVE
