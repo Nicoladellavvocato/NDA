@@ -129,6 +129,8 @@
         setText("alt", parseFloat(d.altitude).toFixed(1) + " km");
         setText("vel", Math.round(parseFloat(d.velocity)).toLocaleString("en-US") + " km/h");
         setText("vis", d.visibility === "daylight" ? "DAYLIGHT" : "ECLIPSE");
+        var ml = document.getElementById("issMapLink");
+        if (ml) ml.setAttribute("href", "https://www.google.com/maps?q=" + lat.toFixed(5) + "," + lon.toFixed(5) + "&z=4");
         var c = proj(lat, lon);
         var m = document.getElementById("issMarker");
         if (m) m.setAttribute("transform", "translate(" + c[0].toFixed(1) + " " + c[1].toFixed(1) + ")");
