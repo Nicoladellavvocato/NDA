@@ -69,6 +69,8 @@
         <div class="map-wrap">
           <svg id="issMap" viewBox="0 0 720 360" role="img" aria-label="World map showing the live ISS position">
             <rect class="map-bg" x="0" y="0" width="720" height="360"/>
+            <image class="map-img" id="issMapImg" x="0" y="0" width="720" height="360" preserveAspectRatio="none" href="https://commons.wikimedia.org/wiki/Special:FilePath/Land%20ocean%20ice%20cloud%20hires.jpg?width=1600"/>
+            <rect class="map-scrim" x="0" y="0" width="720" height="360"/>
             <g class="grat" id="grat"></g>
             <line class="equator" x1="0" y1="180" x2="720" y2="180"/>
             <line class="meridian" x1="360" y1="0" x2="360" y2="360"/>
@@ -89,6 +91,7 @@
           <div class="trow"><span class="k">Ground speed</span><span class="v" id="vel">—</span></div>
           <div class="trow"><span class="k">Sunlight</span><span class="v" id="vis">—</span></div>
           <div class="trow"><span class="k">Time</span><span class="v" id="utc">—</span></div>
+          <div class="trow"><span class="k">Map</span><a class="v maplink" id="issMapLink" href="https://www.google.com/maps" target="_blank" rel="noopener">Open in Google Maps ↗</a></div>
         </div>
       </div>
       <div class="panel-foot">
