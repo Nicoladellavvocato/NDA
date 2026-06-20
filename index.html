@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicola Dell'Avvocato — Aerospace Engineer · Mission Analysis</title>
+<meta name="description" content="Nicola Dell'Avvocato — aerospace engineer focused on mission analysis and flight dynamics (RocketPy), for space missions and aerospace defence. Live ISS tracker.">
+<meta property="og:title" content="Nicola Dell'Avvocato — Aerospace Engineer">
+<meta property="og:description" content="Mission analysis & flight dynamics for space and defence.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#tracker">live iss</a>
+      <a href="#profile">profile</a>
+      <a href="#focus">focus</a>
+      <a href="#work">work</a>
+      <a href="timeline.html">timeline</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="atmo" aria-hidden="true"></div>
+  <div class="planet" aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-eye">AEROSPACE ENGINEER — POLITECNICO DI TORINO</div>
+    <h1>
+      <span class="ln"><span>Nicola</span></span>
+      <span class="ln"><span>Dell'Avvocato</span></span>
+    </h1>
+    <p class="tag">Mission analysis and flight dynamics — modelling the <em>trajectories</em> that carry payloads to space and define a mission.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn">View work <span class="arr">→</span></a>
+      <a href="#tracker" class="tlink">Track the ISS live <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ISS TRACKER ============ -->
+<section class="block bg-iss" id="tracker">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Mission Control</span>
+      <h2>ISS — Live orbital telemetry.</h2>
+      <p>Real-time position of the International Space Station, computed from live orbital data and refreshed every few seconds — latitude, longitude, altitude and ground speed, plotted as it crosses the planet.</p>
+    </div>
+
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>ISS (ZARYA) · NORAD 25544</span>
+        <span class="live-ind"><span id="issDot"></span><span id="issState">ACQUIRING</span></span>
+      </div>
+      <div class="tracker-body">
+        <div class="map-wrap">
+          <svg id="issMap" viewBox="0 0 720 360" role="img" aria-label="World map showing the live ISS position">
+            <rect class="map-bg" x="0" y="0" width="720" height="360"/>
+            <image class="map-img" id="issMapImg" x="0" y="0" width="720" height="360" preserveAspectRatio="none" href="https://commons.wikimedia.org/wiki/Special:FilePath/Land%20ocean%20ice%20cloud%20hires.jpg?width=1600"/>
+            <rect class="map-scrim" x="0" y="0" width="720" height="360"/>
+            <g class="grat" id="grat"></g>
+            <line class="equator" x1="0" y1="180" x2="720" y2="180"/>
+            <line class="meridian" x1="360" y1="0" x2="360" y2="360"/>
+            <g class="maplab" id="maplab"></g>
+            <path id="issTrail" class="trail" d=""/>
+            <g id="issMarker" transform="translate(360 180)">
+              <circle id="issFoot" class="foot" r="34"/>
+              <circle class="m-glow" r="9"/>
+              <circle class="m-ping" r="4"/>
+              <circle class="m-core" r="3.2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="telem">
+          <div class="trow"><span class="k">Latitude</span><span class="v acc" id="lat">—</span></div>
+          <div class="trow"><span class="k">Longitude</span><span class="v acc" id="lon">—</span></div>
+          <div class="trow"><span class="k">Altitude</span><span class="v" id="alt">—</span></div>
+          <div class="trow"><span class="k">Ground speed</span><span class="v" id="vel">—</span></div>
+          <div class="trow"><span class="k">Sunlight</span><span class="v" id="vis">—</span></div>
+          <div class="trow"><span class="k">Time</span><span class="v" id="utc">—</span></div>
+          <div class="trow"><span class="k">Map</span><a class="v maplink" id="issMapLink" href="https://www.google.com/maps" target="_blank" rel="noopener">Open in Google Maps ↗</a></div>
+        </div>
+      </div>
+      <div class="panel-foot">
+        <span>Source: live orbital data · TLE / SGP4</span>
+        <span><a href="work-iss.html" style="color:var(--accent);text-decoration:none;">How it works →</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROFILE ============ -->
+<section class="block bg-launch" id="profile">
+  <div class="container">
+    <div class="profile-grid">
+      <div class="profile-prose reveal">
+        <span class="eyebrow">Profile</span>
+        <div style="height:18px"></div>
+        <p>I'm Nicola Dell'Avvocato, an aerospace engineering student at Politecnico di Torino, set on the systems that reach space and hold the edge in defence — <strong>launch vehicles, satellites, missiles and uncrewed systems</strong>.</p>
+        <p>My direction is mission analysis and flight dynamics: modelling trajectories and mission performance with Python tools like RocketPy. It sits on real hands-on engineering — I designed and built an F450 quadcopter from airframe to firmware, and ran experimental fibre-optic structural testing on a composite specimen for my thesis. I like problems where simulation meets hardware and the numbers have to hold.</p>
+      </div>
+      <div class="spec reveal">
+        <div class="spec-top"><span>DATASHEET</span><span>REV. C</span></div>
+        <dl>
+          <div><dt>Discipline</dt><dd>Aerospace Eng.</dd></div>
+          <div><dt>Interests</dt><dd>Space · Defence</dd></div>
+          <div><dt>Focus</dt><dd>Mission Analysis</dd></div>
+          <div><dt>Tools</dt><dd>RocketPy · Python</dd></div>
+          <div><dt>University</dt><dd>Polit. di Torino</dd></div>
+          <div><dt>Status</dt><dd>Final-year · 2026</dd></div>
+          <div class="last"><dt>Languages</dt><dd>IT · EN C1 · ES B2</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOCUS ============ -->
+<section class="block bg-earthrise" id="focus">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Focus Areas</span>
+      <h2>Where I'm headed.</h2>
+      <p>Mission analysis is the direction; space and defence are the destination — backed by hands-on engineering.</p>
+    </div>
+    <div class="focus-grid">
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 19 Q 11 2 21 9"/><circle cx="3" cy="19" r="1.5"/><circle cx="21" cy="9" r="1.5"/></svg></div>
+        <div class="num">01</div>
+        <h3>Mission Analysis &amp; Flight Dynamics</h3>
+        <p>Modelling trajectories and mission performance — liftoff, apogee, orbit — with simulation tools like RocketPy. Turning mission requirements into numbers.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9.5" ry="4.5" transform="rotate(-22 12 12)"/><circle cx="18.5" cy="8.6" r="1.7"/></svg></div>
+        <div class="num">02</div>
+        <h3>Space Systems &amp; Satellites</h3>
+        <p>Launch vehicles, satellites and the missions that carry them — from ascent to orbit. The arena I most want to work in.</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 L19 19 L12 15.5 L5 19 Z"/></svg></div>
+        <div class="num">03</div>
+        <h3>Aerospace Defence</h3>
+        <p>Missiles, combat aircraft and uncrewed systems — high-performance vehicles where trajectory, performance and reliability decide the outcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STACK ============ -->
+<section class="block bg-bluemarble" id="stack">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Technical Stack</span>
+      <h2>Tools &amp; methods.</h2>
+      <p>What I work with — from mission simulation to hardware and firmware.</p>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-col reveal">
+        <h4>Programming &amp; Analysis</h4>
+        <div class="tags"><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">C++</span><span class="tag">LaTeX</span></div>
+      </div>
+      <div class="stack-col reveal">
+        <h4>Mission Analysis &amp; Simulation</h4>
+        <div class="tags"><span class="tag">RocketPy</span><span class="tag">Trajectory simulation</span><span class="tag">Flight dynamics</span><span class="tag">Numerical methods</span></div>
+      </div>
+      <div class="stack-col reveal">
+        <h4>Design &amp; Hardware</h4>
+        <div class="tags"><span class="tag">CAD software</span><span class="tag">Additive manufacturing</span><span class="tag">Embedded electronics</span><span class="tag">FEM / FEA</span></div>
+      </div>
+      <div class="stack-col reveal">
+        <h4>Testing &amp; Instrumentation</h4>
+        <div class="tags"><span class="tag">CFRP composites</span><span class="tag">FBG sensors</span><span class="tag">Experimental testing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section class="block bg-jet" id="work">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Selected Work</span>
+      <h2>Projects &amp; research.</h2>
+      <p>Hands-on engineering, experimental research and a live orbital tool — the work behind the profile. Open any card for the full case study.</p>
+    </div>
+
+    <a class="record reveal" href="work-f450.html">
+      <div class="desig">PRJ.01</div>
+      <div>
+        <h3>F450 Quadcopter — Design &amp; Build <span class="go">→</span></h3>
+        <div class="meta">PERSONAL PROJECT · HARDWARE &amp; FIRMWARE</div>
+        <p>Designed and built an F450-class quadcopter from the airframe up. Structural parts were produced by additive manufacturing and assembled around the F450 frame; I integrated the flight controller, ESCs, power distribution and sensors, and developed the control and telemetry logic in C++. The project spanned mechanical design, embedded electronics and real-time firmware — the full hardware-to-software loop.</p>
+        <div class="toolset"><span>C++</span><span>Additive manufacturing</span><span>Embedded electronics</span><span>CAD</span></div>
+      </div>
+      <div class="metric"><div class="big">F450</div><div class="lab">design · build · code</div></div>
+    </a>
+
+    <a class="record reveal" href="work-fbg.html">
+      <div class="desig">PRJ.02</div>
+      <div>
+        <h3>FBG Sensors for Structural Health Monitoring of CFRP <span class="go">→</span></h3>
+        <div class="meta">BSc THESIS · POLITECNICO DI TORINO · 2026</div>
+        <p>My BSc thesis: experimental structural health monitoring of a carbon-fibre (CFRP) coupon instrumented with Fibre Bragg Grating optical sensors. I prepared and instrumented the specimen, ran load tests and analysed the optical-sensor response to measure strain and detect the onset of damage — hands-on work in composite materials, fibre-optic sensing and experimental validation.</p>
+        <div class="toolset"><span>FBG</span><span>CFRP</span><span>Experimental testing</span><span>MATLAB</span></div>
+      </div>
+      <div class="metric"><div class="big">FBG</div><div class="lab">experimental SHM</div></div>
+    </a>
+
+    <a class="record reveal" href="work-iss.html">
+      <div class="desig">PRJ.03</div>
+      <div>
+        <h3>ISS Live Tracker <span class="go">→</span></h3>
+        <div class="meta">PERSONAL TOOL · ORBITAL TRACKING — SHOWN LIVE ABOVE</div>
+        <p>A real-time tracker for the International Space Station, built into this site. It reads live orbital data and continuously computes the ISS sub-point — latitude, longitude, altitude and ground speed — plotting its position and trail across the planet. It grew out of my work computing satellite positions in Python with skyfield (TLE and SGP4 propagation).</p>
+        <div class="toolset"><span>JavaScript</span><span>Orbital mechanics</span><span>skyfield</span><span>Live data</span></div>
+      </div>
+      <div class="metric"><div class="big">ISS</div><div class="lab">live telemetry</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section class="block bg-bluemarble" id="education">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Education &amp; Languages</span>
+      <h2>Background.</h2>
+      <p>The full path, from high school to now — <a href="timeline.html" class="tlink">see the timeline <span class="arr">→</span></a></p>
+    </div>
+    <div class="edu">
+      <div class="ecard reveal">
+        <div class="yr">2023 — 2026 · GRADUATING JULY 2026</div>
+        <h3>BSc Aerospace Engineering</h3>
+        <div class="inst">Politecnico di Torino · Turin, Italy</div>
+        <p>Final grade 110/110 · EQF level 6. Thesis: <em>FBG sensors for structural health monitoring — experimental validation of a CFRP coupon.</em></p>
+      </div>
+      <div class="ecard reveal">
+        <div class="yr">2018 — 2023 · DIPLOMA 100/100</div>
+        <h3>Liceo Scientifico</h3>
+        <div class="inst">"Federico II di Svevia" · Altamura, Italy</div>
+        <p>Scientific high-school track — a foundation in mathematics, physics and the sciences.</p>
+      </div>
+      <div class="ecard reveal">
+        <div class="yr">LANGUAGES</div>
+        <h3>Italian · English · Spanish</h3>
+        <div class="inst">CEFR proficiency</div>
+        <p>Italian (native) · English C1 · Spanish B2 — comfortable studying and working in English across international, technical settings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="news bg-launch" id="newsletter">
+  <div class="container">
+    <div class="news-card reveal">
+      <span class="corner tl"></span><span class="corner br"></span>
+      <div>
+        <span class="eyebrow">Mission Updates</span>
+        <h2>Follow the trajectory.</h2>
+        <p>An occasional dispatch — new projects, simulation write-ups and what I'm building in mission analysis. No noise.</p>
+      </div>
+      <!-- Newsletter: pre-wired for a free Formspree AJAX endpoint.
+           1) Create a form at https://formspree.io  2) replace YOUR_FORM_ID below.
+           To use a managed list instead (Mailchimp / Buttondown), set the action
+           to that provider's endpoint and keep the email field name they expect. -->
+      <form class="news-form" id="newsForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <div class="news-row">
+          <input class="news-input" type="email" name="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" required>
+          <button type="submit" class="btn solid">Subscribe <span class="arr">→</span></button>
+        </div>
+        <p class="news-status" id="newsStatus" role="status" aria-live="polite"></p>
+        <p class="news-note">No spam, unsubscribe anytime. Prefer a direct line? <a href="mailto:nicoladellavvocato@gmail.com">Email me</a>.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact bg-night" id="contact">
+  <div class="container contact-inner">
+    <div class="reveal">
+      <span class="eyebrow">Contact</span>
+      <div style="height:18px"></div>
+      <h2>Let's plot the next <em>trajectory</em>.</h2>
+      <p>Open to graduate roles and internships in mission analysis, space systems and defence. Reach me on whichever channel suits you.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a class="clink" href="mailto:nicoladellavvocato@gmail.com">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg>Email</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://wa.me/393314380217" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a2.7 2.7 0 0 0-.8 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.6 2.2.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>WhatsApp</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=nicoladellavvocato@gmail.com&amp;su=Hello%20Nicola" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>Gmail</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://instagram.com/nic.avv" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Instagram</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://www.linkedin.com/in/nicola-dell-avvocato-713887328" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.6h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 5.9V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21H9V9Z"/></svg>LinkedIn</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://github.com/Nicoladellavvocato" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2 1-2.6-.1-.3-.4-1.4.1-2.8 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.5.1 2.8.6.6 1 1.5 1 2.6 0 3.8-2.3 4.6-4.5 4.9.3.3.6.8.6 1.7v2.5c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>GitHub</span><span class="ar">↗</span></a>
+      <a class="clink" href="cv.pdf" download>
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v11m0 0l-4-4m4 4l4-4"/><path d="M5 19h14"/></svg>Download CV</span><span class="ar">↗</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="container foot-inner">
+    <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
+    <span>Mission Analysis // Space &amp; Defence</span>
+  </div>
+</footer>
+
+<!-- ============ FLOATING QUICK-CONTACT DOCK ============ -->
+<nav class="dock" aria-label="Quick contact">
+  <a href="https://wa.me/393314380217" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <span class="lbl">WhatsApp</span>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a2.7 2.7 0 0 0-.8 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.6 2.2.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>
+  </a>
+  <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=nicoladellavvocato@gmail.com&amp;su=Hello%20Nicola" target="_blank" rel="noopener" aria-label="Gmail">
+    <span class="lbl">Gmail</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>
+  </a>
+  <a href="https://instagram.com/nic.avv" target="_blank" rel="noopener" aria-label="Instagram">
+    <span class="lbl">Instagram</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+</nav>
+
+<script src="main.js" defer></script>
+</body>
+</html>

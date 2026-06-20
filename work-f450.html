@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F450 Quadcopter — Design &amp; Build · Nicola Dell'Avvocato</title>
+<meta name="description" content="PRJ.01 — Design and build of an F450-class quadcopter: airframe, additive-manufactured parts, embedded electronics integration and C++ flight-control firmware.">
+<meta property="og:title" content="F450 Quadcopter — Design &amp; Build">
+<meta property="og:description" content="Hardware-to-software: airframe, embedded electronics and real-time control firmware in C++.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="index.html#tracker">live iss</a>
+      <a href="index.html#profile">profile</a>
+      <a href="index.html#focus">focus</a>
+      <a href="index.html#work">work</a>
+      <a href="timeline.html">timeline</a>
+      <a href="index.html#contact">contact</a>
+    </nav>
+    <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ PROJECT HERO ============ -->
+<section class="proj-hero bp">
+  <div class="container">
+    <a class="breadcrumb" href="index.html#work">← All work</a>
+    <div class="desig">PRJ.01</div>
+    <h1>F450 Quadcopter — Design &amp; Build</h1>
+    <p class="pmeta">Personal project · Mechanical design · Embedded electronics · Real-time firmware</p>
+    <div class="toolset">
+      <span>C++</span><span>Additive manufacturing</span><span>Embedded electronics</span><span>CAD</span><span>Control systems</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT BODY ============ -->
+<section class="proj-body bg-night">
+  <div class="container proj-grid">
+    <article class="proj-main">
+      <p class="lead reveal">An F450-class quadcopter built from the airframe up — a deliberately full-stack project that runs from CAD and additive manufacturing through power and sensor integration to the real-time control firmware that keeps it in the air.</p>
+
+      <h2 class="reveal"><span class="hx">01</span> Mission brief</h2>
+      <p class="reveal">The goal was to own the entire loop of a small unmanned aircraft rather than assemble an off-the-shelf kit: design and print the structural parts, wire and integrate the propulsion and avionics, and write the flight-control software myself. Working end-to-end forces every interface — mechanical, electrical and software — to be understood rather than treated as a black box, which is exactly the kind of system-level thinking mission and flight-dynamics work depends on.</p>
+
+      <h2 class="reveal"><span class="hx">02</span> Airframe &amp; mechanical</h2>
+      <p class="reveal">The aircraft is built around the popular <strong>F450 frame</strong> in the classic quadcopter "X" configuration — four arms at 90°, motors at the tips, avionics stacked in the centre. Custom structural and mounting parts were produced by <strong>additive manufacturing (FDM)</strong>, which made it easy to iterate on geometry: motor mounts, sensor and electronics brackets, and protective housings could be reprinted and refined between test sessions.</p>
+      <p class="reveal">Designing the printed parts in CAD meant accounting for print orientation and layer adhesion so that load paths ran along, rather than across, the weaker inter-layer direction, and keeping the centre of mass close to the geometric centre of the airframe for balanced control authority.</p>
+
+      <h2 class="reveal"><span class="hx">03</span> Electronics integration</h2>
+      <p class="reveal">The avionics and propulsion chain were integrated and wired as a single system:</p>
+      <ul class="reveal">
+        <li><strong>Flight controller</strong> — the central compute board running the control firmware and reading the onboard sensors.</li>
+        <li><strong>Inertial sensing</strong> — an IMU (accelerometer + gyroscope) providing the attitude-rate and acceleration data the controller fuses into an attitude estimate.</li>
+        <li><strong>Propulsion</strong> — four brushless motors, each driven by its own electronic speed controller (ESC) taking a PWM command from the flight controller.</li>
+        <li><strong>Power</strong> — a LiPo battery feeding a power-distribution board that supplies the ESCs and the avionics rail.</li>
+        <li><strong>Command &amp; telemetry</strong> — an RC radio link for pilot input and a telemetry downlink for live status during testing.</li>
+      </ul>
+      <div class="callout reveal">
+        <div class="lab">Integration note</div>
+        <p>The hard part of integration is rarely a single component — it is the interfaces: signal levels, grounding, current draw, vibration isolation for the IMU, and making sure the failsafe behaviour is consistent across the radio link, the controller and the ESCs.</p>
+      </div>
+
+      <h2 class="reveal"><span class="hx">04</span> Firmware &amp; control (C++)</h2>
+      <p class="reveal">The flight-control logic was developed in <strong>C++</strong> on the embedded controller, structured around a fixed-rate control loop:</p>
+      <ul class="reveal">
+        <li><strong>State estimation</strong> — fusing gyroscope and accelerometer data to estimate vehicle attitude, rejecting noise and short-term bias.</li>
+        <li><strong>Stabilisation</strong> — <strong>PID</strong> control on the attitude/rate channels (roll, pitch, yaw) to hold commanded angles and damp disturbances.</li>
+        <li><strong>Motor mixing</strong> — converting the roll/pitch/yaw/throttle demands into four individual motor commands and writing them out as PWM to the ESCs.</li>
+        <li><strong>Failsafes</strong> — defined behaviour on loss of radio link or out-of-range states, so the aircraft fails predictably rather than unpredictably.</li>
+        <li><strong>Telemetry</strong> — streaming live state down to the ground for monitoring and post-flight review.</li>
+      </ul>
+
+      <h2 class="reveal"><span class="hx">05</span> Testing &amp; tuning</h2>
+      <p class="reveal">Bring-up was incremental and deliberately conservative: bench checks of motor direction and command mapping, then constrained low-throttle tests, then progressively freer flight as the controller gains were tuned. PID tuning was iterative — adjusting the proportional, integral and derivative terms to trade responsiveness against overshoot and oscillation, and watching the telemetry to confirm the attitude estimate tracked reality. Mechanical issues (vibration coupling into the IMU, balance, wiring strain) were fixed in parallel with the software.</p>
+
+      <h2 class="reveal"><span class="hx">06</span> Takeaways</h2>
+      <p class="reveal">The project tied together mechanical design, embedded electronics and real-time control into one working vehicle. The most valuable outcome was practical fluency across the boundaries: knowing how a control law on paper becomes a PWM signal at a motor, how sensor noise and structural vibration feed back into stability, and how to bring a safety-critical system up in steps. That hardware-to-software intuition carries directly into flight-dynamics and mission-analysis work.</p>
+    </article>
+
+    <aside class="proj-aside">
+      <div class="spec-block reveal">
+        <div class="spec-top"><span>SPECIFICATION</span><span>PRJ.01</span></div>
+        <dl>
+          <div><dt>Class</dt><dd>F450</dd></div>
+          <div><dt>Config</dt><dd>Quad "X"</dd></div>
+          <div><dt>Structure</dt><dd>FDM + frame</dd></div>
+          <div><dt>Controller</dt><dd>Embedded FC</dd></div>
+          <div><dt>Firmware</dt><dd>C++</dd></div>
+          <div><dt>Sensing</dt><dd>IMU</dd></div>
+          <div><dt>Propulsion</dt><dd>4× BLDC + ESC</dd></div>
+          <div><dt>Comms</dt><dd>RC + telemetry</dd></div>
+        </dl>
+      </div>
+    </aside>
+  </div>
+
+  <div class="container">
+    <nav class="proj-nav" aria-label="Project navigation">
+      <a class="pn" href="index.html#work">
+        <div class="k">Index</div>
+        <div class="t">← All work</div>
+      </a>
+      <a class="pn next" href="work-fbg.html">
+        <div class="k">Next · PRJ.02</div>
+        <div class="t">FBG Sensors for CFRP SHM →</div>
+      </a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="container foot-inner">
+    <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
+    <span>Mission Analysis // Space &amp; Defence</span>
+  </div>
+</footer>
+
+<!-- ============ FLOATING QUICK-CONTACT DOCK ============ -->
+<nav class="dock" aria-label="Quick contact">
+  <a href="https://wa.me/393314380217" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <span class="lbl">WhatsApp</span>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a2.7 2.7 0 0 0-.8 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.6 2.2.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>
+  </a>
+  <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=nicoladellavvocato@gmail.com&amp;su=Hello%20Nicola" target="_blank" rel="noopener" aria-label="Gmail">
+    <span class="lbl">Gmail</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>
+  </a>
+  <a href="https://instagram.com/nic.avv" target="_blank" rel="noopener" aria-label="Instagram">
+    <span class="lbl">Instagram</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+</nav>
+
+<script src="main.js" defer></script>
+</body>
+</html>
