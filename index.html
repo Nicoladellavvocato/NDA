@@ -11,223 +11,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0A0C10;
-    --panel:#11151C;
-    --panel-2:#161B23;
-    --line:rgba(255,255,255,0.09);
-    --line-2:rgba(255,255,255,0.16);
-    --t1:#FFFFFF;
-    --t2:#C2C9D4;
-    --t3:#7E8794;
-    --accent:#5AB4FF;
-    --accent-soft:rgba(90,180,255,0.16);
-    --font-display:"Saira",system-ui,sans-serif;
-    --font-body:"Saira",system-ui,sans-serif;
-    --font-mono:"IBM Plex Mono",ui-monospace,monospace;
-    --container:1180px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{font-family:var(--font-body);background:var(--bg);color:var(--t2);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-  .container{max-width:var(--container);margin:0 auto;padding:0 32px;}
-  a{color:inherit;}
-  ::selection{background:var(--accent);color:#000;}
-
-  .eyebrow{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px;}
-  .eyebrow::before{content:"//";color:var(--t3);opacity:0.7;}
-
-  @keyframes beacon{0%{box-shadow:0 0 0 0 rgba(90,180,255,0.5);}70%{box-shadow:0 0 0 7px rgba(90,180,255,0);}100%{box-shadow:0 0 0 0 rgba(90,180,255,0);}}
-
-  /* ---------- nav ---------- */
-  header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s ease,border-color .3s ease;border-bottom:1px solid transparent;}
-  header.nav.scrolled{background:rgba(10,12,16,0.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;}
-  .brand{font-family:var(--font-display);font-weight:700;font-size:0.96rem;letter-spacing:0.14em;text-transform:uppercase;color:#fff;}
-  .brand .x{color:var(--accent);}
-  .nav-links{display:flex;gap:30px;align-items:center;}
-  .nav-links a{font-family:var(--font-display);font-weight:600;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;color:#fff;opacity:0.85;transition:opacity .2s,color .2s;}
-  .nav-links a:hover,.nav-links a:focus-visible{opacity:1;color:var(--accent);}
-  .nav-right{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;color:#fff;display:flex;align-items:center;gap:9px;text-transform:uppercase;}
-  .nav-right .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:beacon 2.6s infinite;}
-
-  /* ---------- hero ---------- */
-  .hero{position:relative;height:100vh;min-height:660px;background:#02040A;overflow:hidden;display:flex;align-items:flex-end;}
-  .stars{position:absolute;inset:0;z-index:0;}
-  .stars .tw{animation:tw 3.6s ease-in-out infinite;}
-  @keyframes tw{50%{opacity:0.12;}}
-  .atmo{position:absolute;left:50%;transform:translateX(-50%);bottom:20vh;width:160vw;height:42vh;z-index:1;
-    background:radial-gradient(60% 100% at 50% 100%,rgba(90,180,255,0.30),rgba(60,130,210,0.10) 42%,transparent 68%);filter:blur(14px);pointer-events:none;}
-  .planet{position:absolute;left:50%;transform:translateX(-50%);bottom:-36vh;width:200vw;height:70vh;z-index:1;border-radius:100% 100% 0 0;
-    background:radial-gradient(80% 130% at 50% 0%,#1a3a5c 0%,#0d2236 22%,#06131f 46%,#03080e 70%);}
-  .planet::before{content:"";position:absolute;left:0;right:0;top:-1px;height:3px;border-radius:100% 100% 0 0;
-    background:linear-gradient(90deg,transparent,rgba(160,210,255,0.6) 22%,rgba(195,225,255,0.9) 50%,rgba(160,210,255,0.6) 78%,transparent);
-    box-shadow:0 0 22px 3px rgba(90,180,255,0.55);}
-  .scrim{position:absolute;inset:0;z-index:2;background:
-    linear-gradient(to top,rgba(2,4,10,0.88) 0%,rgba(2,4,10,0.35) 32%,transparent 62%),
-    radial-gradient(90% 70% at 18% 88%,rgba(2,4,10,0.7),transparent 70%);}
-  .hero-inner{position:relative;z-index:3;width:100%;padding-bottom:9vh;}
-  .hero-eye{font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:#fff;opacity:0.92;margin-bottom:22px;}
-  .hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(3rem,9.2vw,7.4rem);line-height:0.92;letter-spacing:-0.01em;text-transform:uppercase;color:#fff;text-shadow:0 2px 40px rgba(0,0,0,0.5);}
-  .hero h1 .ln{display:block;overflow:hidden;}
-  .hero h1 .ln span{display:block;transform:translateY(104%);animation:rise 1s cubic-bezier(.2,.7,.2,1) forwards;}
-  .hero h1 .ln:nth-child(2) span{animation-delay:.09s;}
-  @keyframes rise{to{transform:translateY(0);}}
-  .hero .tag{font-size:1.18rem;line-height:1.5;color:var(--t2);max-width:46ch;margin:26px 0 34px;}
-  .hero .tag em{color:#fff;font-style:normal;}
-  .cta-row{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
-  .btn{font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;padding:14px 26px;border:1px solid rgba(255,255,255,0.55);color:#fff;display:inline-flex;align-items:center;gap:11px;transition:all .2s ease;}
-  .btn:hover,.btn:focus-visible{background:#fff;color:#000;border-color:#fff;}
-  .tlink{font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;color:var(--accent);display:inline-flex;align-items:center;gap:9px;}
-  .tlink:hover,.tlink:focus-visible{color:#fff;}
-  .arr{transition:transform .2s ease;}
-  .btn:hover .arr,.tlink:hover .arr{transform:translateX(4px);}
-
-  /* ---------- section base ---------- */
-  section.block{padding:96px 0;border-top:1px solid var(--line);}
-  .block-head{margin-bottom:48px;max-width:780px;}
-  .block-head h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,3rem);letter-spacing:0;text-transform:uppercase;line-height:1.02;margin-top:18px;color:#fff;}
-  .block-head p{color:var(--t2);margin-top:16px;font-size:1.06rem;}
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
-  .reveal.in{opacity:1;transform:none;}
-
-  /* ---------- ISS tracker ---------- */
-  .panel{position:relative;background:var(--panel);border:1px solid var(--line-2);}
-  .panel .corner{position:absolute;width:10px;height:10px;border:1px solid var(--accent);z-index:2;}
-  .panel .corner.tl{top:-1px;left:-1px;border-right:0;border-bottom:0;}
-  .panel .corner.tr{top:-1px;right:-1px;border-left:0;border-bottom:0;}
-  .panel .corner.bl{bottom:-1px;left:-1px;border-right:0;border-top:0;}
-  .panel .corner.br{bottom:-1px;right:-1px;border-left:0;border-top:0;}
-  .panel-head{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);}
-  .live-ind{display:flex;align-items:center;gap:9px;color:var(--accent);}
-  #issDot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:beacon 2.4s infinite;}
-  #issDot.lost{background:#E2552F;animation:none;}
-  .tracker-body{display:grid;grid-template-columns:1.65fr 1fr;}
-  .map-wrap{border-right:1px solid var(--line);padding:16px;}
-  #issMap{width:100%;height:auto;display:block;background:#070B11;border:1px solid var(--line);}
-  .map-bg{fill:#070B11;}
-  .grat line{stroke:rgba(255,255,255,0.06);stroke-width:1;}
-  .equator{stroke:rgba(90,180,255,0.32);stroke-width:1;stroke-dasharray:5 5;}
-  .meridian{stroke:rgba(255,255,255,0.10);stroke-width:1;stroke-dasharray:5 5;}
-  .maplab{font-family:var(--font-mono);font-size:9px;fill:var(--t3);}
-  .trail{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0.55;}
-  .foot{fill:rgba(90,180,255,0.07);stroke:rgba(90,180,255,0.28);stroke-width:1;}
-  .m-glow{fill:rgba(90,180,255,0.35);}
-  .m-core{fill:#fff;}
-  .m-ping{fill:none;stroke:var(--accent);stroke-width:1.4;animation:issping 2.2s ease-out infinite;}
-  @keyframes issping{0%{opacity:0.85;r:4;}80%,100%{opacity:0;r:24;}}
-  .telem{display:flex;flex-direction:column;}
-  .trow{display:flex;justify-content:space-between;align-items:baseline;padding:15px 20px;border-bottom:1px solid var(--line);}
-  .trow .k{font-family:var(--font-mono);font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);}
-  .trow .v{font-family:var(--font-mono);font-size:1.0rem;color:#fff;}
-  .trow .v.acc{color:var(--accent);}
-  .panel-foot{padding:13px 20px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--t3);text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-
-  /* ---------- profile ---------- */
-  .profile-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start;}
-  .profile-prose p{font-size:1.14rem;color:var(--t2);margin-bottom:18px;line-height:1.66;}
-  .profile-prose p strong{color:#fff;font-weight:600;}
-  .spec{border:1px solid var(--line-2);background:var(--panel);}
-  .spec .spec-top{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);padding:13px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;}
-  .spec dl{display:grid;grid-template-columns:auto 1fr;}
-  .spec dt,.spec dd{padding:12px 16px;font-family:var(--font-mono);font-size:0.8rem;border-bottom:1px solid var(--line);}
-  .spec dt{color:var(--t3);letter-spacing:0.04em;border-right:1px solid var(--line);white-space:nowrap;}
-  .spec dd{color:#fff;text-align:right;}
-  .spec dl>div{display:contents;}
-  .spec .last dt,.spec .last dd{border-bottom:0;}
-
-  /* ---------- focus ---------- */
-  .focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  .fcard{background:var(--panel);border:1px solid var(--line-2);padding:28px 26px 30px;transition:transform .25s ease,border-color .25s ease;}
-  .fcard:hover{transform:translateY(-4px);border-color:var(--accent);}
-  .fcard .num{font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);letter-spacing:0.12em;}
-  .fcard h3{font-family:var(--font-display);font-weight:600;font-size:1.28rem;margin:14px 0 10px;color:#fff;}
-  .fcard p{color:var(--t2);font-size:0.97rem;line-height:1.6;}
-  .fcard .ic{height:34px;width:34px;margin-bottom:6px;}
-  .fcard .ic svg{width:100%;height:100%;stroke:var(--accent);fill:none;stroke-width:1.6;}
-
-  /* ---------- stack ---------- */
-  .stack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:42px 56px;}
-  .stack-col h4{font-family:var(--font-mono);font-size:0.74rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--t3);padding-bottom:13px;margin-bottom:16px;border-bottom:1px solid var(--line-2);}
-  .tags{display:flex;flex-wrap:wrap;gap:9px;}
-  .tag{font-family:var(--font-mono);font-size:0.8rem;color:var(--t2);border:1px solid var(--line-2);background:transparent;padding:8px 13px;transition:all .18s ease;}
-  .tag:hover{border-color:var(--accent);color:#fff;}
-
-  /* ---------- work ---------- */
-  .record{background:var(--panel);border:1px solid var(--line-2);padding:32px;margin-bottom:18px;display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:start;transition:border-color .2s ease;}
-  .record:hover{border-color:var(--accent);}
-  .record .desig{font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);letter-spacing:0.06em;padding-top:4px;}
-  .record h3{font-family:var(--font-display);font-weight:600;font-size:1.36rem;color:#fff;margin-bottom:6px;}
-  .record .meta{font-family:var(--font-mono);font-size:0.76rem;color:var(--t3);margin-bottom:14px;letter-spacing:0.03em;}
-  .record p{color:var(--t2);font-size:0.99rem;max-width:64ch;line-height:1.62;}
-  .record .toolset{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px;}
-  .record .toolset span{font-family:var(--font-mono);font-size:0.72rem;color:var(--t3);border:1px solid var(--line);padding:4px 9px;}
-  .record .metric{text-align:right;white-space:nowrap;}
-  .record .metric .big{font-family:var(--font-display);font-weight:800;font-size:1.7rem;color:#fff;line-height:1;}
-  .record .metric .lab{font-family:var(--font-mono);font-size:0.64rem;color:var(--t3);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;}
-
-  /* ---------- education ---------- */
-  .edu{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
-  .ecard{background:var(--panel);border:1px solid var(--line-2);padding:28px;}
-  .ecard .yr{font-family:var(--font-mono);font-size:0.74rem;color:var(--accent);letter-spacing:0.06em;}
-  .ecard h3{font-family:var(--font-display);font-weight:600;font-size:1.24rem;color:#fff;margin:10px 0 6px;}
-  .ecard .inst{font-family:var(--font-mono);font-size:0.82rem;color:var(--t3);margin-bottom:10px;}
-  .ecard p{color:var(--t2);font-size:0.95rem;}
-  .ecard p em{color:#fff;font-style:italic;}
-
-  /* ---------- contact ---------- */
-  .contact{padding:104px 0;border-top:1px solid var(--line);}
-  .contact-inner{display:grid;grid-template-columns:1fr auto;gap:50px;align-items:end;}
-  .contact h2{font-family:var(--font-display);font-weight:800;font-size:clamp(2.4rem,5.4vw,4rem);letter-spacing:0;text-transform:uppercase;line-height:0.98;color:#fff;}
-  .contact h2 em{color:var(--accent);font-style:normal;}
-  .contact p{color:var(--t2);margin-top:18px;max-width:48ch;font-size:1.05rem;}
-  .contact-links{display:flex;flex-direction:column;border:1px solid var(--line-2);min-width:300px;}
-  .clink{padding:17px 22px;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.84rem;text-decoration:none;color:#fff;border-bottom:1px solid var(--line);transition:background .18s ease,color .18s ease;}
-  .clink:last-child{border-bottom:0;}
-  .clink:hover{background:var(--accent);color:#000;}
-  .clink .ar{color:var(--t3);transition:transform .2s ease,color .2s ease;}
-  .clink:hover .ar{color:#000;transform:translate(3px,-3px);}
-
-  footer.foot{padding:32px 0;border-top:1px solid var(--line);}
-  .foot-inner{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.72rem;color:var(--t3);letter-spacing:0.04em;flex-wrap:wrap;gap:10px;text-transform:uppercase;}
-
-  a:focus-visible,.btn:focus-visible,.tag:focus-visible,.clink:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
-
-  @media(max-width:900px){
-    .profile-grid{grid-template-columns:1fr;gap:38px;}
-    .focus-grid{grid-template-columns:1fr;}
-    .stack-grid{grid-template-columns:1fr;gap:34px;}
-    .edu{grid-template-columns:1fr;}
-    .record{grid-template-columns:auto 1fr;}
-    .record .metric{grid-column:1 / -1;text-align:left;border-top:1px solid var(--line);padding-top:14px;}
-    .record .metric .lab{display:inline;margin-left:8px;}
-    .contact-inner{grid-template-columns:1fr;align-items:start;}
-    .contact-links{min-width:0;}
-  }
-  @media(max-width:820px){
-    .tracker-body{grid-template-columns:1fr;}
-    .map-wrap{border-right:0;border-bottom:1px solid var(--line);}
-  }
-  @media(max-width:680px){
-    .container{padding:0 20px;}
-    .nav-links{display:none;}
-    section.block{padding:64px 0;}
-  }
-  @media(prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important;}
-    .hero h1 .ln span{transform:none;}
-    .reveal{opacity:1;transform:none;}
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<a class="skip" href="#main">Skip to content</a>
 
 <!-- ============ NAV ============ -->
 <header class="nav">
   <div class="container nav-inner">
-    <div class="brand">NICOLA DELL'<span class="x">A</span>VVOCATO</div>
-    <nav class="nav-links">
+    <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
       <a href="#tracker">live iss</a>
       <a href="#profile">profile</a>
       <a href="#focus">focus</a>
@@ -235,8 +29,13 @@
       <a href="#contact">contact</a>
     </nav>
     <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<main id="main">
 
 <!-- ============ HERO ============ -->
 <section class="hero">
@@ -259,7 +58,7 @@
 </section>
 
 <!-- ============ ISS TRACKER ============ -->
-<section class="block" id="tracker">
+<section class="block bg-iss" id="tracker">
   <div class="container">
     <div class="block-head reveal">
       <span class="eyebrow">Mission Control</span>
@@ -301,14 +100,14 @@
       </div>
       <div class="panel-foot">
         <span>Source: live orbital data · TLE / SGP4</span>
-        <span>Refresh: 5 s</span>
+        <span><a href="work-iss.html" style="color:var(--accent);text-decoration:none;">How it works →</a></span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ PROFILE ============ -->
-<section class="block" id="profile">
+<section class="block bg-launch" id="profile">
   <div class="container">
     <div class="profile-grid">
       <div class="profile-prose reveal">
@@ -334,7 +133,7 @@
 </section>
 
 <!-- ============ FOCUS ============ -->
-<section class="block" id="focus">
+<section class="block bg-earthrise" id="focus">
   <div class="container">
     <div class="block-head reveal">
       <span class="eyebrow">Focus Areas</span>
@@ -365,7 +164,7 @@
 </section>
 
 <!-- ============ STACK ============ -->
-<section class="block" id="stack">
+<section class="block bg-bluemarble" id="stack">
   <div class="container">
     <div class="block-head reveal">
       <span class="eyebrow">Technical Stack</span>
@@ -394,51 +193,51 @@
 </section>
 
 <!-- ============ WORK ============ -->
-<section class="block" id="work">
+<section class="block bg-jet" id="work">
   <div class="container">
     <div class="block-head reveal">
       <span class="eyebrow">Selected Work</span>
       <h2>Projects &amp; research.</h2>
-      <p>Hands-on engineering, experimental research and a live orbital tool — the work behind the profile.</p>
+      <p>Hands-on engineering, experimental research and a live orbital tool — the work behind the profile. Open any card for the full case study.</p>
     </div>
 
-    <div class="record reveal">
+    <a class="record reveal" href="work-f450.html">
       <div class="desig">PRJ.01</div>
       <div>
-        <h3>F450 Quadcopter — Design &amp; Build</h3>
+        <h3>F450 Quadcopter — Design &amp; Build <span class="go">→</span></h3>
         <div class="meta">PERSONAL PROJECT · HARDWARE &amp; FIRMWARE</div>
         <p>Designed and built an F450-class quadcopter from the airframe up. Structural parts were produced by additive manufacturing and assembled around the F450 frame; I integrated the flight controller, ESCs, power distribution and sensors, and developed the control and telemetry logic in C++. The project spanned mechanical design, embedded electronics and real-time firmware — the full hardware-to-software loop.</p>
         <div class="toolset"><span>C++</span><span>Additive manufacturing</span><span>Embedded electronics</span><span>CAD</span></div>
       </div>
       <div class="metric"><div class="big">F450</div><div class="lab">design · build · code</div></div>
-    </div>
+    </a>
 
-    <div class="record reveal">
+    <a class="record reveal" href="work-fbg.html">
       <div class="desig">PRJ.02</div>
       <div>
-        <h3>FBG Sensors for Structural Health Monitoring of CFRP</h3>
+        <h3>FBG Sensors for Structural Health Monitoring of CFRP <span class="go">→</span></h3>
         <div class="meta">BSc THESIS · POLITECNICO DI TORINO · 2026</div>
         <p>My BSc thesis: experimental structural health monitoring of a carbon-fibre (CFRP) coupon instrumented with Fibre Bragg Grating optical sensors. I prepared and instrumented the specimen, ran load tests and analysed the optical-sensor response to measure strain and detect the onset of damage — hands-on work in composite materials, fibre-optic sensing and experimental validation.</p>
         <div class="toolset"><span>FBG</span><span>CFRP</span><span>Experimental testing</span><span>MATLAB</span></div>
       </div>
       <div class="metric"><div class="big">FBG</div><div class="lab">experimental SHM</div></div>
-    </div>
+    </a>
 
-    <div class="record reveal">
+    <a class="record reveal" href="work-iss.html">
       <div class="desig">PRJ.03</div>
       <div>
-        <h3>ISS Live Tracker</h3>
+        <h3>ISS Live Tracker <span class="go">→</span></h3>
         <div class="meta">PERSONAL TOOL · ORBITAL TRACKING — SHOWN LIVE ABOVE</div>
         <p>A real-time tracker for the International Space Station, built into this site. It reads live orbital data and continuously computes the ISS sub-point — latitude, longitude, altitude and ground speed — plotting its position and trail across the planet. It grew out of my work computing satellite positions in Python with skyfield (TLE and SGP4 propagation).</p>
         <div class="toolset"><span>JavaScript</span><span>Orbital mechanics</span><span>skyfield</span><span>Live data</span></div>
       </div>
       <div class="metric"><div class="big">ISS</div><div class="lab">live telemetry</div></div>
-    </div>
+    </a>
   </div>
 </section>
 
 <!-- ============ EDUCATION ============ -->
-<section class="block" id="education">
+<section class="block bg-bluemarble" id="education">
   <div class="container">
     <div class="block-head reveal">
       <span class="eyebrow">Education &amp; Languages</span>
@@ -461,132 +260,85 @@
   </div>
 </section>
 
+<!-- ============ NEWSLETTER ============ -->
+<section class="news bg-launch" id="newsletter">
+  <div class="container">
+    <div class="news-card reveal">
+      <span class="corner tl"></span><span class="corner br"></span>
+      <div>
+        <span class="eyebrow">Mission Updates</span>
+        <h2>Follow the trajectory.</h2>
+        <p>An occasional dispatch — new projects, simulation write-ups and what I'm building in mission analysis. No noise.</p>
+      </div>
+      <!-- Newsletter: pre-wired for a free Formspree AJAX endpoint.
+           1) Create a form at https://formspree.io  2) replace YOUR_FORM_ID below.
+           To use a managed list instead (Mailchimp / Buttondown), set the action
+           to that provider's endpoint and keep the email field name they expect. -->
+      <form class="news-form" id="newsForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <div class="news-row">
+          <input class="news-input" type="email" name="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" required>
+          <button type="submit" class="btn solid">Subscribe <span class="arr">→</span></button>
+        </div>
+        <p class="news-status" id="newsStatus" role="status" aria-live="polite"></p>
+        <p class="news-note">No spam, unsubscribe anytime. Prefer a direct line? <a href="mailto:nicoladellavvocato@gmail.com">Email me</a>.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CONTACT ============ -->
-<section class="contact" id="contact">
+<section class="contact bg-night" id="contact">
   <div class="container contact-inner">
     <div class="reveal">
       <span class="eyebrow">Contact</span>
       <div style="height:18px"></div>
       <h2>Let's plot the next <em>trajectory</em>.</h2>
-      <p>Open to graduate roles and internships in mission analysis, space systems and defence. Email is the fastest way to reach me.</p>
+      <p>Open to graduate roles and internships in mission analysis, space systems and defence. Reach me on whichever channel suits you.</p>
     </div>
     <div class="contact-links reveal">
-      <a class="clink" href="mailto:nicoladellavvocato@gmail.com">Email <span class="ar">↗</span></a>
-      <a class="clink" href="https://www.linkedin.com/in/nicola-dell-avvocato-713887328" target="_blank" rel="noopener">LinkedIn <span class="ar">↗</span></a>
-      <a class="clink" href="https://github.com/Nicoladellavvocato" target="_blank" rel="noopener">GitHub <span class="ar">↗</span></a>
-      <a class="clink" href="cv.pdf" download>Download CV <span class="ar">↗</span></a>
+      <a class="clink" href="mailto:nicoladellavvocato@gmail.com">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg>Email</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://wa.me/393314380217" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a2.7 2.7 0 0 0-.8 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.6 2.2.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>WhatsApp</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=nicoladellavvocato@gmail.com&amp;su=Hello%20Nicola" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>Gmail</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://instagram.com/nic.avv" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>Instagram</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://www.linkedin.com/in/nicola-dell-avvocato-713887328" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.6h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 5.9V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21H9V9Z"/></svg>LinkedIn</span><span class="ar">↗</span></a>
+      <a class="clink" href="https://github.com/Nicoladellavvocato" target="_blank" rel="noopener">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2 1-2.6-.1-.3-.4-1.4.1-2.8 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.5.1 2.8.6.6 1 1.5 1 2.6 0 3.8-2.3 4.6-4.5 4.9.3.3.6.8.6 1.7v2.5c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>GitHub</span><span class="ar">↗</span></a>
+      <a class="clink" href="cv.pdf" download>
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v11m0 0l-4-4m4 4l4-4"/><path d="M5 19h14"/></svg>Download CV</span><span class="ar">↗</span></a>
     </div>
   </div>
 </section>
 
+</main>
+
 <footer class="foot">
   <div class="container foot-inner">
-    <span>© 2026 Nicola Dell'Avvocato</span>
+    <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
     <span>Mission Analysis // Space &amp; Defence</span>
   </div>
 </footer>
 
-<script>
-(function(){
-  "use strict";
+<!-- ============ FLOATING QUICK-CONTACT DOCK ============ -->
+<nav class="dock" aria-label="Quick contact">
+  <a href="https://wa.me/393314380217" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <span class="lbl">WhatsApp</span>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a2.7 2.7 0 0 0-.8 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.6 2.2.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>
+  </a>
+  <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=nicoladellavvocato@gmail.com&amp;su=Hello%20Nicola" target="_blank" rel="noopener" aria-label="Gmail">
+    <span class="lbl">Gmail</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>
+  </a>
+  <a href="https://instagram.com/nic.avv" target="_blank" rel="noopener" aria-label="Instagram">
+    <span class="lbl">Instagram</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+</nav>
 
-  // ---- starfield ----
-  var sky=document.getElementById('stars');
-  if(sky){
-    var frag=document.createDocumentFragment();
-    for(var i=0;i<150;i++){
-      var s=document.createElement('span');
-      var size=Math.random()<0.85?1:2;
-      s.style.cssText='position:absolute;left:'+(Math.random()*100).toFixed(2)+'%;top:'+(Math.random()*78).toFixed(2)+'%;width:'+size+'px;height:'+size+'px;border-radius:50%;background:#fff;opacity:'+(0.15+Math.random()*0.7).toFixed(2)+';';
-      if(Math.random()<0.16) s.className='tw';
-      frag.appendChild(s);
-    }
-    sky.appendChild(frag);
-  }
-
-  // ---- nav scrolled ----
-  var nav=document.querySelector('.nav');
-  window.addEventListener('scroll',function(){
-    if(nav) nav.classList.toggle('scrolled', window.scrollY>40);
-  },{passive:true});
-
-  // ---- reveal ----
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:0.12, rootMargin:"0px 0px -40px 0px"});
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-
-  // ---- map graticule + labels ----
-  var grat=document.getElementById('grat');
-  if(grat){
-    var g='';
-    for(var x=60;x<720;x+=60) g+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="360"/>';
-    for(var y=60;y<360;y+=60) g+='<line x1="0" y1="'+y+'" x2="720" y2="'+y+'"/>';
-    grat.innerHTML=g;
-  }
-  var maplab=document.getElementById('maplab');
-  if(maplab){
-    var lons=[[-180,4],[-90,182],[0,362],[90,542],[180,712]];
-    var lats=[[60,64],[0,184],[-60,304]];
-    var ml='';
-    lons.forEach(function(p){ ml+='<text x="'+p[1]+'" y="354" text-anchor="middle">'+p[0]+'\u00B0</text>'; });
-    lats.forEach(function(p){ ml+='<text x="6" y="'+p[1]+'">'+p[0]+'\u00B0</text>'; });
-    maplab.innerHTML=ml;
-  }
-
-  // ---- UTC clock ----
-  function tickUTC(){
-    var el=document.getElementById('utc');
-    if(el){ el.textContent=new Date().toISOString().slice(11,19)+' UTC'; }
-  }
-  tickUTC(); setInterval(tickUTC,1000);
-
-  // ---- ISS live position ----
-  var ISS_URL='https://api.wheretheiss.at/v1/satellites/25544';
-  var W=720, H=360, trail=[];
-  function setText(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
-  function fmtLat(v){ return Math.abs(v).toFixed(4)+'\u00B0 '+(v>=0?'N':'S'); }
-  function fmtLon(v){ return Math.abs(v).toFixed(4)+'\u00B0 '+(v>=0?'E':'W'); }
-  function proj(lat,lon){ return [ (lon+180)/360*W, (90-lat)/180*H ]; }
-  function setStatus(ok){
-    var d=document.getElementById('issDot'), t=document.getElementById('issState');
-    if(!d||!t) return;
-    if(ok){ d.classList.remove('lost'); t.textContent='LIVE'; }
-    else { d.classList.add('lost'); t.textContent='SIGNAL LOST — RETRYING'; }
-  }
-  function drawTrail(){
-    var p=document.getElementById('issTrail'); if(!p) return;
-    var d='', prev=null;
-    for(var i=0;i<trail.length;i++){
-      var pt=trail[i];
-      if(prev && Math.abs(pt[0]-prev[0])>W/2){ d+=' M '+pt[0].toFixed(1)+' '+pt[1].toFixed(1); }
-      else { d+=(d?' L ':'M ')+pt[0].toFixed(1)+' '+pt[1].toFixed(1); }
-      prev=pt;
-    }
-    p.setAttribute('d', d);
-  }
-  function updateISS(){
-    fetch(ISS_URL,{cache:'no-store'}).then(function(r){
-      if(!r.ok) throw new Error('http');
-      return r.json();
-    }).then(function(d){
-      var lat=parseFloat(d.latitude), lon=parseFloat(d.longitude);
-      setText('lat', fmtLat(lat));
-      setText('lon', fmtLon(lon));
-      setText('alt', parseFloat(d.altitude).toFixed(1)+' km');
-      setText('vel', Math.round(parseFloat(d.velocity)).toLocaleString('en-US')+' km/h');
-      setText('vis', (d.visibility==='daylight'?'DAYLIGHT':'ECLIPSE'));
-      var c=proj(lat,lon);
-      var m=document.getElementById('issMarker');
-      if(m) m.setAttribute('transform','translate('+c[0].toFixed(1)+' '+c[1].toFixed(1)+')');
-      var fp=document.getElementById('issFoot');
-      if(fp && d.footprint){ var rpx=((parseFloat(d.footprint)/2)/111)*2; fp.setAttribute('r', Math.max(8,Math.min(60,rpx)).toFixed(1)); }
-      trail.push(c); if(trail.length>90) trail.shift(); drawTrail();
-      setStatus(true);
-    }).catch(function(){ setStatus(false); });
-  }
-  updateISS(); setInterval(updateISS,5000);
-})();
-</script>
+<script src="main.js" defer></script>
 </body>
 </html>

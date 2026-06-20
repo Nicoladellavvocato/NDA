@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISS Live Tracker — How it works · Nicola Dell'Avvocato</title>
+<meta name="description" content="PRJ.03 — a real-time ISS tracker built into this site: live orbital data, sub-point computation, equirectangular projection, ground trail and footprint. Grew out of satellite-position work in Python with skyfield.">
+<meta property="og:title" content="ISS Live Tracker — How it works">
+<meta property="og:description" content="Real-time orbital telemetry, from Python skyfield experiments to a live in-browser tracker.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="index.html#tracker">live iss</a>
+      <a href="index.html#profile">profile</a>
+      <a href="index.html#focus">focus</a>
+      <a href="index.html#work">work</a>
+      <a href="index.html#contact">contact</a>
+    </nav>
+    <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ PROJECT HERO ============ -->
+<section class="proj-hero iss">
+  <div class="container">
+    <a class="breadcrumb" href="index.html#work">← All work</a>
+    <div class="desig">PRJ.03</div>
+    <h1>ISS Live Tracker</h1>
+    <p class="pmeta">Built into this site · Live orbital telemetry · From Python to the browser</p>
+    <div class="toolset">
+      <span>JavaScript</span><span>Orbital mechanics</span><span>skyfield</span><span>Live data</span><span>SVG</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIVE DEMO (same component as the home page) ============ -->
+<section class="block" id="tracker" style="padding-top:64px;">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Live demo</span>
+      <h2>The tracker, running right here.</h2>
+      <p>This is the same component embedded on the home page — reading live orbital data and refreshing every few seconds. If it shows <em>signal lost</em>, the public data source is momentarily unreachable; it retries automatically.</p>
+    </div>
+
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>ISS (ZARYA) · NORAD 25544</span>
+        <span class="live-ind"><span id="issDot"></span><span id="issState">ACQUIRING</span></span>
+      </div>
+      <div class="tracker-body">
+        <div class="map-wrap">
+          <svg id="issMap" viewBox="0 0 720 360" role="img" aria-label="World map showing the live ISS position">
+            <rect class="map-bg" x="0" y="0" width="720" height="360"/>
+            <g class="grat" id="grat"></g>
+            <line class="equator" x1="0" y1="180" x2="720" y2="180"/>
+            <line class="meridian" x1="360" y1="0" x2="360" y2="360"/>
+            <g class="maplab" id="maplab"></g>
+            <path id="issTrail" class="trail" d=""/>
+            <g id="issMarker" transform="translate(360 180)">
+              <circle id="issFoot" class="foot" r="34"/>
+              <circle class="m-glow" r="9"/>
+              <circle class="m-ping" r="4"/>
+              <circle class="m-core" r="3.2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="telem">
+          <div class="trow"><span class="k">Latitude</span><span class="v acc" id="lat">—</span></div>
+          <div class="trow"><span class="k">Longitude</span><span class="v acc" id="lon">—</span></div>
+          <div class="trow"><span class="k">Altitude</span><span class="v" id="alt">—</span></div>
+          <div class="trow"><span class="k">Ground speed</span><span class="v" id="vel">—</span></div>
+          <div class="trow"><span class="k">Sunlight</span><span class="v" id="vis">—</span></div>
+          <div class="trow"><span class="k">Time</span><span class="v" id="utc">—</span></div>
+        </div>
+      </div>
+      <div class="panel-foot">
+        <span>Source: live orbital data · TLE / SGP4</span>
+        <span><a href="index.html#tracker" style="color:var(--accent);text-decoration:none;">View on home →</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT BODY ============ -->
+<section class="proj-body" style="padding-top:24px;">
+  <div class="container proj-grid">
+    <article class="proj-main">
+      <p class="lead reveal">A real-time tracker for the International Space Station, built directly into this portfolio. It reads live orbital data, computes where the station is over the Earth, and plots its position, trail and visibility footprint on a world map — refreshing continuously.</p>
+
+      <h2 class="reveal"><span class="hx">01</span> Concept</h2>
+      <p class="reveal">The tracker grew out of my work computing satellite positions in <strong>Python with skyfield</strong>, propagating orbits from <strong>TLE</strong> data using the <strong>SGP4</strong> model. Having worked out the orbital mechanics offline, I wanted a version that was live, visual and embedded somewhere people could actually see it — so I rebuilt the idea as a lightweight in-browser component for this site.</p>
+
+      <h2 class="reveal"><span class="hx">02</span> How it works</h2>
+      <p class="reveal">On a fixed interval the tracker pulls the station's current orbital state and derives the quantities shown in the telemetry panel:</p>
+      <ul class="reveal">
+        <li><strong>Sub-point</strong> — the latitude and longitude directly beneath the ISS, i.e. where it is over the ground.</li>
+        <li><strong>Altitude &amp; ground speed</strong> — how high it is and how fast its sub-point sweeps across the surface.</li>
+        <li><strong>Sunlight</strong> — whether the station is currently in daylight or in Earth's shadow.</li>
+      </ul>
+      <p class="reveal">Those coordinates are drawn onto an <strong>equirectangular projection</strong> — a simple, direct mapping of longitude to the horizontal axis and latitude to the vertical, which is why the world map is a plain rectangle with a graticule.</p>
+
+      <h2 class="reveal"><span class="hx">03</span> The trail &amp; footprint</h2>
+      <p class="reveal">As updates arrive, recent sub-points are joined into a <strong>ground trail</strong> behind the marker. Because the map wraps at ±180° longitude, the trail handles the <strong>antimeridian</strong> crossing so the line doesn't streak straight across the map when the station passes the date line. A translucent <strong>footprint</strong> circle around the marker indicates the region of the Earth that has the station above its horizon.</p>
+
+      <h2 class="reveal"><span class="hx">04</span> Telemetry readout</h2>
+      <p class="reveal">Alongside the map, a live telemetry block lists latitude, longitude, altitude, ground speed, sunlight state and the current time, updated in step with the position so the numbers and the marker always agree.</p>
+
+      <h2 class="reveal"><span class="hx">05</span> Resilience</h2>
+      <p class="reveal">Because the data comes from a live external source, the component is built to fail gracefully. A status indicator reflects the link state, and if a fetch fails the tracker shows <strong>signal lost</strong> and keeps retrying on its refresh cycle rather than freezing or breaking the page. The whole feature is also written to degrade quietly: if the component isn't present or data never arrives, the rest of the site is unaffected.</p>
+
+      <h2 class="reveal"><span class="hx">06</span> From Python to the browser</h2>
+      <p class="reveal">The interesting part of the project was translating orbital-mechanics reasoning I'd done in Python into something live and visual on the web — the same underlying ideas of orbital state, sub-point and propagation, repackaged as a small, robust, self-contained piece of front-end engineering. It's the signature interactive element of this portfolio and a compact demonstration of taking an idea end-to-end.</p>
+    </article>
+
+    <aside class="proj-aside">
+      <div class="spec-block reveal">
+        <div class="spec-top"><span>SPECIFICATION</span><span>PRJ.03</span></div>
+        <dl>
+          <div><dt>Object</dt><dd>ISS (ZARYA)</dd></div>
+          <div><dt>NORAD</dt><dd>25544</dd></div>
+          <div><dt>Data</dt><dd>Live orbital</dd></div>
+          <div><dt>Model</dt><dd>TLE / SGP4</dd></div>
+          <div><dt>Refresh</dt><dd>~5 s</dd></div>
+          <div><dt>Render</dt><dd>SVG equirect.</dd></div>
+          <div><dt>Stack</dt><dd>JavaScript</dd></div>
+          <div><dt>Origin</dt><dd>Python · skyfield</dd></div>
+        </dl>
+      </div>
+    </aside>
+  </div>
+
+  <div class="container">
+    <nav class="proj-nav" aria-label="Project navigation">
+      <a class="pn" href="work-fbg.html">
+        <div class="k">Prev · PRJ.02</div>
+        <div class="t">← FBG Sensors for CFRP SHM</div>
+      </a>
+      <a class="pn next" href="index.html#work">
+        <div class="k">Index</div>
+        <div class="t">All work →</div>
+      </a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="container foot-inner">
+    <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
+    <span>Mission Analysis // Space &amp; Defence</span>
+  </div>
+</footer>
+
+<!-- ============ FLOATING QUICK-CONTACT DOCK ============ -->
+<nav class="dock" aria-label="Quick contact">
+  <a href="https://wa.me/393314380217" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <span class="lbl">WhatsApp</span>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a2.7 2.7 0 0 0-.8 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.6 2.2.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>
+  </a>
+  <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=nicoladellavvocato@gmail.com&amp;su=Hello%20Nicola" target="_blank" rel="noopener" aria-label="Gmail">
+    <span class="lbl">Gmail</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>
+  </a>
+  <a href="https://instagram.com/nic.avv" target="_blank" rel="noopener" aria-label="Instagram">
+    <span class="lbl">Instagram</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+</nav>
+
+<script src="main.js" defer></script>
+</body>
+</html>
