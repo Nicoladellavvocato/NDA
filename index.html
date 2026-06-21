@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -22,12 +23,32 @@
   <div class="container nav-inner">
     <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
-      <a href="#tracker">live iss</a>
-      <a href="#profile">profile</a>
-      <a href="#focus">focus</a>
-      <a href="#work">work</a>
+      <div class="nav-item has-drop">
+        <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">live <span class="caret" aria-hidden="true"></span></button>
+        <div class="dropdown" role="menu">
+          <a role="menuitem" href="live.html#iss">ISS Live Tracker</a>
+          <a role="menuitem" href="live.html#launch">Next Launch</a>
+          <a role="menuitem" href="live.html#crew">Who's in Space</a>
+          <a role="menuitem" href="live.html#asteroids">Near-Earth Asteroids</a>
+          <a role="menuitem" href="live.html#weather">Space Weather</a>
+          <a role="menuitem" href="live.html#apod">Picture of the Day</a>
+          <a role="menuitem" href="live.html#epic">Earth from Space</a>
+          <a role="menuitem" href="live.html#sat">Satellite Tracker</a>
+          <a role="menuitem" href="live.html#copernicus">Air Quality Map</a>
+          <a role="menuitem" class="drop-all" href="live.html">All feeds →</a>
+        </div>
+      </div>
+      <div class="nav-item has-drop">
+        <button type="button" class="drop-trigger" data-spy="work" aria-haspopup="true" aria-expanded="false">work <span class="caret" aria-hidden="true"></span></button>
+        <div class="dropdown" role="menu">
+          <a role="menuitem" href="work-f450.html">F450 Quadcopter</a>
+          <a role="menuitem" href="work-fbg.html">FBG · CFRP Thesis</a>
+          <a role="menuitem" class="drop-all" href="#work">All work →</a>
+        </div>
+      </div>
       <a href="timeline.html">timeline</a>
-      <a href="#contact">contact</a>
+      <a href="archive.html">archive</a>
+      <a href="#contact" data-spy="contact">contact</a>
     </nav>
     <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
     <button class="nav-toggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
@@ -53,59 +74,7 @@
     <p class="tag">Mission analysis and flight dynamics — modelling the <em>trajectories</em> that carry payloads to space and define a mission.</p>
     <div class="cta-row">
       <a href="#work" class="btn">View work <span class="arr">→</span></a>
-      <a href="#tracker" class="tlink">Track the ISS live <span class="arr">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ISS TRACKER ============ -->
-<section class="block bg-iss" id="tracker">
-  <div class="container">
-    <div class="block-head reveal">
-      <span class="eyebrow">Mission Control</span>
-      <h2>ISS — Live orbital telemetry.</h2>
-      <p>Real-time position of the International Space Station, computed from live orbital data and refreshed every few seconds — latitude, longitude, altitude and ground speed, plotted as it crosses the planet.</p>
-    </div>
-
-    <div class="panel reveal">
-      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-      <div class="panel-head">
-        <span>ISS (ZARYA) · NORAD 25544</span>
-        <span class="live-ind"><span id="issDot"></span><span id="issState">ACQUIRING</span></span>
-      </div>
-      <div class="tracker-body">
-        <div class="map-wrap">
-          <svg id="issMap" viewBox="0 0 720 360" role="img" aria-label="World map showing the live ISS position">
-            <rect class="map-bg" x="0" y="0" width="720" height="360"/>
-            <image class="map-img" id="issMapImg" x="0" y="0" width="720" height="360" preserveAspectRatio="none" href="https://commons.wikimedia.org/wiki/Special:FilePath/Land%20ocean%20ice%20cloud%20hires.jpg?width=1600"/>
-            <rect class="map-scrim" x="0" y="0" width="720" height="360"/>
-            <g class="grat" id="grat"></g>
-            <line class="equator" x1="0" y1="180" x2="720" y2="180"/>
-            <line class="meridian" x1="360" y1="0" x2="360" y2="360"/>
-            <g class="maplab" id="maplab"></g>
-            <path id="issTrail" class="trail" d=""/>
-            <g id="issMarker" transform="translate(360 180)">
-              <circle id="issFoot" class="foot" r="34"/>
-              <circle class="m-glow" r="9"/>
-              <circle class="m-ping" r="4"/>
-              <circle class="m-core" r="3.2"/>
-            </g>
-          </svg>
-        </div>
-        <div class="telem">
-          <div class="trow"><span class="k">Latitude</span><span class="v acc" id="lat">—</span></div>
-          <div class="trow"><span class="k">Longitude</span><span class="v acc" id="lon">—</span></div>
-          <div class="trow"><span class="k">Altitude</span><span class="v" id="alt">—</span></div>
-          <div class="trow"><span class="k">Ground speed</span><span class="v" id="vel">—</span></div>
-          <div class="trow"><span class="k">Sunlight</span><span class="v" id="vis">—</span></div>
-          <div class="trow"><span class="k">Time</span><span class="v" id="utc">—</span></div>
-          <div class="trow"><span class="k">Map</span><a class="v maplink" id="issMapLink" href="https://www.google.com/maps" target="_blank" rel="noopener">Open in Google Maps ↗</a></div>
-        </div>
-      </div>
-      <div class="panel-foot">
-        <span>Source: live orbital data · TLE / SGP4</span>
-        <span><a href="work-iss.html" style="color:var(--accent);text-decoration:none;">How it works →</a></span>
-      </div>
+      <a href="live.html" class="tlink">Live data <span class="arr">→</span></a>
     </div>
   </div>
 </section>
@@ -126,7 +95,7 @@
           <div><dt>Discipline</dt><dd>Aerospace Eng.</dd></div>
           <div><dt>Interests</dt><dd>Space · Defence</dd></div>
           <div><dt>Focus</dt><dd>Mission Analysis</dd></div>
-          <div><dt>Tools</dt><dd>RocketPy · Python</dd></div>
+          <div><dt>Tools</dt><dd>MATLAB, Python &amp; more</dd></div>
           <div><dt>University</dt><dd>Polit. di Torino</dd></div>
           <div><dt>Status</dt><dd>Final-year · 2026</dd></div>
           <div class="last"><dt>Languages</dt><dd>IT · EN C1 · ES B2</dd></div>
@@ -227,16 +196,6 @@
       <div class="metric"><div class="big">FBG</div><div class="lab">experimental SHM</div></div>
     </a>
 
-    <a class="record reveal" href="work-iss.html">
-      <div class="desig">PRJ.03</div>
-      <div>
-        <h3>ISS Live Tracker <span class="go">→</span></h3>
-        <div class="meta">PERSONAL TOOL · ORBITAL TRACKING — SHOWN LIVE ABOVE</div>
-        <p>A real-time tracker for the International Space Station, built into this site. It reads live orbital data and continuously computes the ISS sub-point — latitude, longitude, altitude and ground speed — plotting its position and trail across the planet. It grew out of my work computing satellite positions in Python with skyfield (TLE and SGP4 propagation).</p>
-        <div class="toolset"><span>JavaScript</span><span>Orbital mechanics</span><span>skyfield</span><span>Live data</span></div>
-      </div>
-      <div class="metric"><div class="big">ISS</div><div class="lab">live telemetry</div></div>
-    </a>
   </div>
 </section>
 
@@ -281,17 +240,17 @@
         <h2>Follow the trajectory.</h2>
         <p>An occasional dispatch — new projects, simulation write-ups and what I'm building in mission analysis. No noise.</p>
       </div>
-      <!-- Newsletter: pre-wired for a free Formspree AJAX endpoint.
-           1) Create a form at https://formspree.io  2) replace YOUR_FORM_ID below.
-           To use a managed list instead (Mailchimp / Buttondown), set the action
-           to that provider's endpoint and keep the email field name they expect. -->
-      <form class="news-form" id="newsForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <!-- Newsletter: connected to Formspree (form ID xjgqbygl).
+           Submissions appear in your Formspree dashboard and can be exported as CSV.
+           NOTE: Formspree only COLLECTS addresses — it does not send newsletters.
+           See the archive page (archive.html) and the notes Nicola was given on sending. -->
+      <form class="news-form" id="newsForm" action="https://formspree.io/f/xjgqbygl" method="POST" novalidate>
         <div class="news-row">
           <input class="news-input" type="email" name="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" required>
           <button type="submit" class="btn solid">Subscribe <span class="arr">→</span></button>
         </div>
         <p class="news-status" id="newsStatus" role="status" aria-live="polite"></p>
-        <p class="news-note">No spam, unsubscribe anytime. Prefer a direct line? <a href="mailto:nicoladellavvocato@gmail.com">Email me</a>.</p>
+        <p class="news-note">No spam, unsubscribe anytime. <a href="archive.html">Browse past issues →</a></p>
       </form>
     </div>
   </div>
@@ -331,6 +290,7 @@
   <div class="container foot-inner">
     <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
     <span>Mission Analysis // Space &amp; Defence</span>
+    <span><a href="archive.html" style="color:var(--accent);text-decoration:none;">Newsletter archive</a></span>
   </div>
 </footer>
 

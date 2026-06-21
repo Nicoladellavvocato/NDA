@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Timeline — Nicola Dell'Avvocato</title>
-<meta name="description" content="The path so far — from a scientific high-school diploma to an aerospace engineering degree at Politecnico di Torino, hands-on projects and research, heading into mission analysis and space.">
-<meta property="og:title" content="Timeline — Nicola Dell'Avvocato">
-<meta property="og:description" content="From the classroom to mission analysis — the trajectory so far.">
-<meta property="og:type" content="website">
+<title>Issue 01 — Liftoff · Mission Updates · Nicola Dell'Avvocato</title>
+<meta name="description" content="Mission Updates, Issue 01 — why this newsletter exists, the ISS live tracker goes online, and what's next in mission analysis.">
+<meta property="og:type" content="article">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,6 +15,13 @@
 <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
 
 <a class="skip" href="#main">Skip to content</a>
+
+<!-- =================================================================
+     NEWSLETTER ISSUE TEMPLATE
+     To publish a new issue: duplicate this file (e.g. news-2026-07.html),
+     change the title/date/content below, then add a matching <a class="issue">
+     card at the TOP of the list in archive.html pointing to the new file.
+     ================================================================= -->
 
 <!-- ============ NAV ============ -->
 <header class="nav">
@@ -46,7 +51,7 @@
           <a role="menuitem" class="drop-all" href="index.html#work">All work →</a>
         </div>
       </div>
-      <a href="timeline.html" aria-current="page">timeline</a>
+      <a href="timeline.html">timeline</a>
       <a href="archive.html">archive</a>
       <a href="index.html#contact">contact</a>
     </nav>
@@ -62,78 +67,44 @@
 <!-- ============ HERO ============ -->
 <section class="proj-hero ascent">
   <div class="container">
-    <a class="breadcrumb" href="index.html">← Home</a>
-    <div class="desig">TIMELINE</div>
-    <h1>The trajectory so far.</h1>
-    <p class="pmeta">From a scientific high-school diploma to aerospace engineering — and toward mission analysis &amp; space.</p>
+    <a class="breadcrumb" href="archive.html">← All issues</a>
+    <div class="desig">MISSION UPDATES · ISSUE 01 · JUN 2026</div>
+    <h1>Liftoff.</h1>
+    <p class="pmeta">Why this newsletter exists, the ISS tracker goes online, and what's next.</p>
   </div>
 </section>
 
-<!-- ============ TIMELINE ============ -->
-<section class="block bg-night" id="story">
-  <div class="container">
-    <div class="block-head reveal">
-      <span class="eyebrow">My story</span>
-      <h2>Milestones.</h2>
-      <p>The path from Puglia to Turin, the degree and the projects along the way — and where it's heading next.</p>
-    </div>
+<!-- ============ ISSUE BODY ============ -->
+<section class="proj-body bg-night">
+  <div class="container" style="max-width:760px;margin:0 auto;">
+    <article class="proj-main">
+      <p class="lead reveal">Welcome to Mission Updates — an occasional dispatch about what I'm building in aerospace, mission analysis and flight dynamics. Short, technical, no noise.</p>
 
-    <div class="timeline">
+      <h2 class="reveal"><span class="hx">01</span> Why this exists</h2>
+      <p class="reveal">I wanted one place to share the things that don't fit in a CV line: a simulation I'm running, a build that finally flew, a result from the lab. If you signed up from the site — thank you. You'll hear from me only when there's something worth sending.</p>
 
-      <div class="tl-item reveal">
-        <div class="tl-year">2018 — 2023</div>
-        <div class="tl-card">
-          <h3>Liceo Scientifico — Diploma</h3>
-          <div class="inst">Liceo Scientifico "Federico II di Svevia" · Altamura, Italy</div>
-          <p>Scientific high-school track: a foundation in mathematics, physics and the sciences that set the direction for everything after it.</p>
-          <span class="grade">Final grade · 100/100</span>
-        </div>
+      <h2 class="reveal"><span class="hx">02</span> What's new</h2>
+      <p class="reveal">The <a href="work-iss.html">ISS live tracker</a> is online on the site: it reads live orbital data, computes the station's sub-point and plots its position and trail over a world map in real time. It grew out of my work computing satellite positions in Python with skyfield (TLE / SGP4), rebuilt as a small, robust in-browser component.</p>
+
+      <h2 class="reveal"><span class="hx">03</span> What's next</h2>
+      <p class="reveal">I'm finishing my BSc in aerospace engineering at Politecnico di Torino and heading toward mission analysis and space-systems work. Coming up: write-ups on trajectory simulation with RocketPy, and notes from my thesis on fibre-optic structural health monitoring of composites.</p>
+
+      <div class="callout reveal">
+        <div class="lab">Stay in the loop</div>
+        <p>Forward this to anyone who'd enjoy it, and if it was passed to you, <a href="index.html#newsletter">subscribe here</a>.</p>
       </div>
+    </article>
 
-      <div class="tl-item reveal">
-        <div class="tl-year">2023</div>
-        <div class="tl-card">
-          <h3>Politecnico di Torino — BSc Aerospace Engineering</h3>
-          <div class="inst">Turin, Italy</div>
-          <p>Moved from Puglia to Turin to begin the aerospace engineering degree, drawn to the systems that reach space and the disciplines behind them.</p>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <div class="tl-year">2023 — 2026 · Personal</div>
-        <a class="tl-card" href="work-f450.html">
-          <h3>F450 Quadcopter — Design &amp; Build</h3>
-          <div class="inst">Hardware &amp; firmware · alongside the degree</div>
-          <p>Built an F450-class quadcopter from the airframe up — additive-manufactured parts, integrated avionics and propulsion, and real-time flight-control firmware in C++.</p>
-          <span class="more">Read the project →</span>
-        </a>
-      </div>
-
-      <div class="tl-item reveal">
-        <div class="tl-year">2026</div>
-        <a class="tl-card" href="work-fbg.html">
-          <h3>BSc Thesis — FBG Sensors for SHM of CFRP</h3>
-          <div class="inst">Politecnico di Torino · experimental research</div>
-          <p>Experimental structural health monitoring of a carbon-fibre coupon instrumented with fibre Bragg grating optical sensors — measuring strain and detecting the onset of damage.</p>
-          <span class="more">Read the thesis overview →</span>
-        </a>
-      </div>
-
-      <div class="tl-item now reveal">
-        <div class="tl-year">July 2026 — Now</div>
-        <div class="tl-card">
-          <h3>Graduated — Open to roles</h3>
-          <div class="inst">110/110 · Mission analysis · Space &amp; defence</div>
-          <p>Graduating with full marks and looking for graduate roles and internships in mission analysis, flight dynamics, space systems and aerospace defence.</p>
-          <span class="grade">BSc · 110/110</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="reveal" style="text-align:center;margin-top:48px;">
-      <a href="index.html#contact" class="btn">Get in touch <span class="arr">→</span></a>
-    </div>
+    <nav class="proj-nav" aria-label="Issue navigation" style="margin-top:40px;">
+      <a class="pn" href="archive.html">
+        <div class="k">Archive</div>
+        <div class="t">← All issues</div>
+      </a>
+      <a class="pn next" href="index.html#newsletter">
+        <div class="k">Newsletter</div>
+        <div class="t">Subscribe →</div>
+      </a>
+    </nav>
   </div>
 </section>
 

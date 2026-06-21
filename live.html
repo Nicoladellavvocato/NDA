@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Data — Nicola Dell'Avvocato</title>
+<meta name="description" content="Live mission feeds — real-time ISS position, the next rocket launch, who's in space, near-Earth asteroids, space weather, and Earth from space. Built by Nicola Dell'Avvocato.">
+<meta property="og:title" content="Live Data — Nicola Dell'Avvocato">
+<meta property="og:description" content="Real-time space and aerospace data feeds.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- NASA feeds use DEMO_KEY by default. Get a free key at https://api.nasa.gov
+     and replace DEMO_KEY in main.js (variable NASA_KEY) for higher rate limits. -->
+</head>
+<body>
+<div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <div class="nav-item has-drop">
+        <button type="button" class="drop-trigger active" aria-haspopup="true" aria-expanded="false">live <span class="caret" aria-hidden="true"></span></button>
+        <div class="dropdown" role="menu">
+          <a role="menuitem" href="live.html#iss">ISS Live Tracker</a>
+          <a role="menuitem" href="live.html#launch">Next Launch</a>
+          <a role="menuitem" href="live.html#crew">Who's in Space</a>
+          <a role="menuitem" href="live.html#asteroids">Near-Earth Asteroids</a>
+          <a role="menuitem" href="live.html#weather">Space Weather</a>
+          <a role="menuitem" href="live.html#apod">Picture of the Day</a>
+          <a role="menuitem" href="live.html#epic">Earth from Space</a>
+          <a role="menuitem" href="live.html#sat">Satellite Tracker</a>
+          <a role="menuitem" href="live.html#copernicus">Air Quality Map</a>
+          <a role="menuitem" class="drop-all" href="live.html">All feeds →</a>
+        </div>
+      </div>
+      <div class="nav-item has-drop">
+        <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">work <span class="caret" aria-hidden="true"></span></button>
+        <div class="dropdown" role="menu">
+          <a role="menuitem" href="work-f450.html">F450 Quadcopter</a>
+          <a role="menuitem" href="work-fbg.html">FBG · CFRP Thesis</a>
+          <a role="menuitem" class="drop-all" href="index.html#work">All work →</a>
+        </div>
+      </div>
+      <a href="timeline.html">timeline</a>
+      <a href="archive.html">archive</a>
+      <a href="index.html#contact">contact</a>
+    </nav>
+    <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="proj-hero ascent">
+  <div class="container">
+    <a class="breadcrumb" href="index.html">← Home</a>
+    <div class="desig">LIVE DATA</div>
+    <h1>Mission feeds.</h1>
+    <p class="pmeta">Real-time space and aerospace data — orbital position, launches, space weather and Earth observation, pulled live from public sources.</p>
+  </div>
+</section>
+
+<!-- ============ ISS TRACKER ============ -->
+<section class="block bg-iss" id="iss">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Orbital tracking</span>
+      <h2>ISS — live position.</h2>
+      <p>Real-time sub-point of the International Space Station, refreshed every few seconds. <a href="work-iss.html" class="tlink" style="display:inline-flex;">How it works <span class="arr">→</span></a></p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>ISS (ZARYA) · NORAD 25544</span>
+        <span class="live-ind"><span id="issDot"></span><span id="issState">ACQUIRING</span></span>
+      </div>
+      <div class="tracker-body">
+        <div class="map-wrap">
+          <svg id="issMap" viewBox="0 0 720 360" role="img" aria-label="World map showing the live ISS position">
+            <rect class="map-bg" x="0" y="0" width="720" height="360"/>
+            <image class="map-img" id="issMapImg" x="0" y="0" width="720" height="360" preserveAspectRatio="none" href="https://commons.wikimedia.org/wiki/Special:FilePath/Land%20ocean%20ice%20cloud%20hires.jpg?width=1600"/>
+            <rect class="map-scrim" x="0" y="0" width="720" height="360"/>
+            <g class="grat" id="grat"></g>
+            <line class="equator" x1="0" y1="180" x2="720" y2="180"/>
+            <line class="meridian" x1="360" y1="0" x2="360" y2="360"/>
+            <g class="maplab" id="maplab"></g>
+            <path id="issTrail" class="trail" d=""/>
+            <g id="issMarker" transform="translate(360 180)">
+              <circle id="issFoot" class="foot" r="34"/>
+              <circle class="m-glow" r="9"/>
+              <circle class="m-ping" r="4"/>
+              <circle class="m-core" r="3.2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="telem">
+          <div class="trow"><span class="k">Latitude</span><span class="v acc" id="lat">—</span></div>
+          <div class="trow"><span class="k">Longitude</span><span class="v acc" id="lon">—</span></div>
+          <div class="trow"><span class="k">Altitude</span><span class="v" id="alt">—</span></div>
+          <div class="trow"><span class="k">Ground speed</span><span class="v" id="vel">—</span></div>
+          <div class="trow"><span class="k">Sunlight</span><span class="v" id="vis">—</span></div>
+          <div class="trow"><span class="k">Time</span><span class="v" id="utc">—</span></div>
+          <div class="trow"><span class="k">Map</span><a class="v maplink" id="issMapLink" href="https://www.google.com/maps" target="_blank" rel="noopener">Open in Google Maps ↗</a></div>
+        </div>
+      </div>
+      <div class="panel-foot">
+        <span>Source: live orbital data · TLE / SGP4</span>
+        <span>Refresh · 5 s</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SATELLITE TRACKER ============ -->
+<section class="block bg-night" id="sat">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Orbital tracking</span>
+      <h2>Track any satellite.</h2>
+      <p>Pick a spacecraft and watch its ground track propagate in real time — orbital elements pulled live from CelesTrak and propagated in-browser with SGP4, the same model behind my Python work.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span id="satName">SELECT SATELLITE</span>
+        <span class="live-ind"><span class="beacon-dot" id="satDot"></span><span id="satState">ACQUIRING</span></span>
+      </div>
+      <div class="sat-controls">
+        <label for="satSelect">Satellite</label>
+        <select class="sat-select" id="satSelect">
+          <option value="25544">ISS (ZARYA) — 25544</option>
+          <option value="48274">Tiangong / CSS — 48274</option>
+          <option value="20580">Hubble Space Telescope — 20580</option>
+          <option value="33591">NOAA-19 (weather) — 33591</option>
+          <option value="49260">Landsat 9 (Earth obs) — 49260</option>
+          <option value="25994">Terra (EOS AM-1) — 25994</option>
+        </select>
+      </div>
+      <div class="tracker-body">
+        <div class="map-wrap">
+          <svg id="satMap" viewBox="0 0 720 360" role="img" aria-label="World map showing the live satellite ground track">
+            <rect class="map-bg" x="0" y="0" width="720" height="360"/>
+            <image class="map-img" x="0" y="0" width="720" height="360" preserveAspectRatio="none" href="https://commons.wikimedia.org/wiki/Special:FilePath/Land%20ocean%20ice%20cloud%20hires.jpg?width=1600"/>
+            <rect class="map-scrim" x="0" y="0" width="720" height="360"/>
+            <g class="grat"></g>
+            <line class="equator" x1="0" y1="180" x2="720" y2="180"/>
+            <line class="meridian" x1="360" y1="0" x2="360" y2="360"/>
+            <g class="maplab"></g>
+            <path id="satTrail" class="trail" d=""/>
+            <g id="satMarker" transform="translate(360 180)">
+              <circle class="m-glow" r="9"/>
+              <circle class="m-ping" r="4"/>
+              <circle class="m-core" r="3.2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="telem">
+          <div class="trow"><span class="k">Latitude</span><span class="v acc" id="satLat">—</span></div>
+          <div class="trow"><span class="k">Longitude</span><span class="v acc" id="satLon">—</span></div>
+          <div class="trow"><span class="k">Altitude</span><span class="v" id="satAlt">—</span></div>
+          <div class="trow"><span class="k">Ground speed</span><span class="v" id="satVel">—</span></div>
+          <div class="trow"><span class="k">Model</span><span class="v">SGP4 · TLE</span></div>
+          <div class="trow"><span class="k">Source</span><span class="v">CelesTrak GP</span></div>
+        </div>
+      </div>
+      <div class="panel-foot">
+        <span>Elements: CelesTrak · propagated locally (satellite.js)</span>
+        <span>Refresh · 2 s</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEXT LAUNCH ============ -->
+<section class="block bg-launch" id="launch">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Spaceflight</span>
+      <h2>Next launch.</h2>
+      <p>The next orbital launch on the manifest, with a live countdown to lift-off.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>UPCOMING · LAUNCH LIBRARY 2</span>
+        <span class="live-ind"><span class="beacon-dot" id="launchDot"></span><span id="launchState">ACQUIRING</span></span>
+      </div>
+      <div class="feed-lead">
+        <div class="cd-big" id="launchCountdown">—</div>
+        <div class="sub" id="launchName">Loading…</div>
+      </div>
+      <ul class="feed-list">
+        <li><span class="lbl">Provider</span><span class="val acc" id="launchProvider">—</span></li>
+        <li><span class="lbl">Pad</span><span class="val" id="launchPad">—</span></li>
+        <li><span class="lbl">T-0 (UTC)</span><span class="val" id="launchNet">—</span></li>
+      </ul>
+      <div class="panel-foot">
+        <span>Source: thespacedevs.com</span>
+        <span>Countdown to T-0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO'S IN SPACE ============ -->
+<section class="block bg-earthrise" id="crew">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Human spaceflight</span>
+      <h2>Who's in space right now.</h2>
+      <p>Everyone currently in orbit, and the spacecraft they're aboard.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>PEOPLE IN ORBIT</span>
+        <span class="live-ind"><span class="beacon-dot" id="crewDot"></span><span id="crewState">ACQUIRING</span></span>
+      </div>
+      <div class="feed-lead">
+        <div class="big-num acc" id="crewCount">—</div>
+        <div class="sub">people in space right now · <span id="crewExp">—</span></div>
+      </div>
+      <ul class="feed-list" id="crewList"><li><span class="lbl">Loading…</span><span class="val"></span></li></ul>
+      <div class="panel-foot">
+        <span>Source: community ISS data</span>
+        <span>Updated continuously</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEAR-EARTH ASTEROIDS ============ -->
+<section class="block bg-bluemarble" id="asteroids">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Planetary defence</span>
+      <h2>Near-Earth asteroids today.</h2>
+      <p>Asteroids making a close approach to Earth in the next 24 hours, ordered by miss distance.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>CLOSE APPROACHES · <span id="neoDate">—</span></span>
+        <span class="live-ind"><span class="beacon-dot" id="neoDot"></span><span id="neoState">ACQUIRING</span></span>
+      </div>
+      <div class="feed-lead">
+        <div class="big-num" id="neoCount">—</div>
+        <div class="sub">tracked close approaches today</div>
+      </div>
+      <ul class="feed-list" id="neoList"><li><span class="lbl">Loading…</span><span class="val"></span></li></ul>
+      <div class="panel-foot">
+        <span>Source: NASA NeoWs</span>
+        <span>Sorted by miss distance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPACE WEATHER ============ -->
+<section class="block bg-jet" id="weather">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Space weather</span>
+      <h2>Geomagnetic activity.</h2>
+      <p>The planetary K-index (Kp) — how disturbed Earth's magnetic field is right now. High Kp means auroras, and added stress on satellites and power grids.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>PLANETARY K-INDEX</span>
+        <span class="live-ind"><span class="beacon-dot" id="kpDot"></span><span id="kpState">ACQUIRING</span></span>
+      </div>
+      <div class="feed-lead">
+        <div class="big-num acc" id="kpValue">—</div>
+        <div class="sub" id="kpLabel">—</div>
+      </div>
+      <ul class="feed-list">
+        <li><span class="lbl">Last observed</span><span class="val" id="kpTime">—</span></li>
+        <li><span class="lbl">Scale</span><span class="val">0 – 9 (Kp)</span></li>
+      </ul>
+      <div class="panel-foot">
+        <span>Source: NOAA SWPC</span>
+        <span>Kp ≥ 5 = storm</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PICTURE OF THE DAY ============ -->
+<section class="block bg-iss" id="apod">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Image of the day</span>
+      <h2>Astronomy Picture of the Day.</h2>
+      <p>NASA's daily featured image of the cosmos, with the official explanation.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>NASA APOD · <span id="apodDate">—</span></span>
+        <span class="live-ind"><span class="beacon-dot" id="apodDot"></span><span id="apodState">ACQUIRING</span></span>
+      </div>
+      <div class="feed-grid">
+        <div class="feed-pad"><img class="feed-img" id="apodImg" alt="Astronomy Picture of the Day"></div>
+        <div class="feed-body">
+          <div class="feed-note">
+            <h3 id="apodTitle">—</h3>
+            <p id="apodText">Loading…</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel-foot">
+        <span>Source: apod.nasa.gov</span>
+        <span><a id="apodLink" href="#" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">View full size →</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COPERNICUS AIR QUALITY MAP ============ -->
+<section class="block bg-earthrise" id="copernicus">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Earth observation · Copernicus</span>
+      <h2>Global air quality.</h2>
+      <p>Surface PM2.5 concentration sampled on a global grid from the Copernicus Atmosphere Monitoring Service (CAMS), via Open-Meteo (CC BY 4.0), drawn as a colour map. The grid is downloadable as CSV.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>CAMS · SURFACE PM2.5 (µg/m³)</span>
+        <span class="live-ind"><span class="beacon-dot" id="cmapDot"></span><span id="cmapState">ACQUIRING</span></span>
+      </div>
+      <div class="cmap-wrap">
+        <svg id="cmap" viewBox="0 0 720 360" role="img" aria-label="Global colour map of PM2.5 surface air quality">
+          <rect class="map-bg" x="0" y="0" width="720" height="360"/>
+          <g id="cmapCells"></g>
+          <g class="grat"></g>
+          <line class="equator" x1="0" y1="180" x2="720" y2="180"/>
+          <line class="meridian" x1="360" y1="0" x2="360" y2="360"/>
+          <g class="maplab"></g>
+        </svg>
+      </div>
+      <div class="cmap-legend">
+        <span class="sw"><span class="chip" style="background:#2ecc71"></span>0–10</span>
+        <span class="sw"><span class="chip" style="background:#a3d65c"></span>10–20</span>
+        <span class="sw"><span class="chip" style="background:#f4d03f"></span>20–30</span>
+        <span class="sw"><span class="chip" style="background:#f39c12"></span>30–45</span>
+        <span class="sw"><span class="chip" style="background:#e2552f"></span>45–75</span>
+        <span class="sw"><span class="chip" style="background:#8e44ad"></span>75+</span>
+        <span class="sw"><span class="chip" style="background:#1b2430"></span>no data</span>
+        <span style="color:var(--t3)">µg/m³</span>
+      </div>
+      <div class="panel-foot">
+        <span id="cmapTime">Source: Copernicus CAMS · Open-Meteo</span>
+        <span><button type="button" class="dl-btn" id="cmapDownload" disabled>↓ Download CSV</button></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EARTH FROM SPACE ============ -->
+<section class="block bg-bluemarble" id="epic">
+  <div class="container">
+    <div class="block-head reveal">
+      <span class="eyebrow">Earth observation</span>
+      <h2>Earth from a million miles away.</h2>
+      <p>The most recent full-disk image of Earth from NASA's EPIC camera aboard DSCOVR, parked at the L1 Lagrange point between Earth and the Sun.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="panel-head">
+        <span>DSCOVR · EPIC NATURAL COLOUR</span>
+        <span class="live-ind"><span class="beacon-dot" id="epicDot"></span><span id="epicState">ACQUIRING</span></span>
+      </div>
+      <div class="feed-pad"><img class="feed-img" id="epicImg" alt="Earth from DSCOVR EPIC"></div>
+      <div class="feed-note">Captured <span id="epicDate">—</span> · sunlit side of Earth</div>
+      <div class="panel-foot">
+        <span>Source: epic.gsfc.nasa.gov</span>
+        <span>Natural-colour composite</span>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:44px;text-align:center;">
+      <a href="index.html#contact" class="btn">Work with me <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="container foot-inner">
+    <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
+    <span>Mission Analysis // Space &amp; Defence</span>
+    <span><a href="archive.html" style="color:var(--accent);text-decoration:none;">Newsletter archive</a></span>
+  </div>
+</footer>
+
+<!-- ============ FLOATING QUICK-CONTACT DOCK ============ -->
+<nav class="dock" aria-label="Quick contact">
+  <a href="https://wa.me/393314380217" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <span class="lbl">WhatsApp</span>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a2.7 2.7 0 0 0-.8 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.6 2.2.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>
+  </a>
+  <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=nicoladellavvocato@gmail.com&amp;su=Hello%20Nicola" target="_blank" rel="noopener" aria-label="Gmail">
+    <span class="lbl">Gmail</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>
+  </a>
+  <a href="https://instagram.com/nic.avv" target="_blank" rel="noopener" aria-label="Instagram">
+    <span class="lbl">Instagram</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/satellite.js@5.0.0/dist/satellite.min.js" defer></script>
+<script src="main.js" defer></script>
+</body>
+</html>

@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -22,11 +23,31 @@
   <div class="container nav-inner">
     <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
-      <a href="index.html#tracker">live iss</a>
-      <a href="index.html#profile">profile</a>
-      <a href="index.html#focus">focus</a>
-      <a href="index.html#work">work</a>
+      <div class="nav-item has-drop">
+        <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">live <span class="caret" aria-hidden="true"></span></button>
+        <div class="dropdown" role="menu">
+          <a role="menuitem" href="live.html#iss">ISS Live Tracker</a>
+          <a role="menuitem" href="live.html#launch">Next Launch</a>
+          <a role="menuitem" href="live.html#crew">Who's in Space</a>
+          <a role="menuitem" href="live.html#asteroids">Near-Earth Asteroids</a>
+          <a role="menuitem" href="live.html#weather">Space Weather</a>
+          <a role="menuitem" href="live.html#apod">Picture of the Day</a>
+          <a role="menuitem" href="live.html#epic">Earth from Space</a>
+          <a role="menuitem" href="live.html#sat">Satellite Tracker</a>
+          <a role="menuitem" href="live.html#copernicus">Air Quality Map</a>
+          <a role="menuitem" class="drop-all" href="live.html">All feeds →</a>
+        </div>
+      </div>
+      <div class="nav-item has-drop">
+        <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">work <span class="caret" aria-hidden="true"></span></button>
+        <div class="dropdown" role="menu">
+          <a role="menuitem" href="work-f450.html">F450 Quadcopter</a>
+          <a role="menuitem" href="work-fbg.html">FBG · CFRP Thesis</a>
+          <a role="menuitem" class="drop-all" href="index.html#work">All work →</a>
+        </div>
+      </div>
       <a href="timeline.html">timeline</a>
+      <a href="archive.html">archive</a>
       <a href="index.html#contact">contact</a>
     </nav>
     <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
@@ -41,7 +62,7 @@
 <!-- ============ PROJECT HERO ============ -->
 <section class="proj-hero iss">
   <div class="container">
-    <a class="breadcrumb" href="index.html#work">← All work</a>
+    <a class="breadcrumb" href="live.html#iss">← Live data</a>
     <div class="desig">PRJ.03</div>
     <h1>ISS Live Tracker</h1>
     <p class="pmeta">Built into this site · Live orbital telemetry · From Python to the browser</p>
@@ -171,6 +192,7 @@
   <div class="container foot-inner">
     <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
     <span>Mission Analysis // Space &amp; Defence</span>
+    <span><a href="archive.html" style="color:var(--accent);text-decoration:none;">Newsletter archive</a></span>
   </div>
 </footer>
 
