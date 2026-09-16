@@ -512,3 +512,7 @@ a.tl-card:hover .more{text-decoration:underline;}
   .hero h1 .ln span{transform:none;}
   .reveal{opacity:1;transform:none;}
 }
+
+/* Non-linked project records (no case-study page) */
+.record.static{cursor:default;}
+.record.static:hover{border-color:var(--line-2);transform:none;}
