@@ -482,7 +482,7 @@
     for (var lo = -165; lo <= 165; lo += 30) lons.push(lo);   // 12 columns
     for (var la = 63; la >= -57; la -= 24) lats.push(la);     // 6 rows (north -> south)
     function colour(v) {
-      if (v == null || isNaN(v)) return "#1b2430";
+      if (v == null || isNaN(v)) return "#161f36";
       if (v <= 10) return "#2ecc71";
       if (v <= 20) return "#a3d65c";
       if (v <= 30) return "#f4d03f";
