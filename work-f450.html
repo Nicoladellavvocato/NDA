@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F450 Quadcopter with AI Mission Interface · Nicola Dell'Avvocato</title>
+<meta name="description" content="UAV.01 — personal project: an F450-class quadcopter with additively manufactured structural parts and an AI chat interface that turns natural language into autonomous mission configurations.">
+<meta property="og:title" content="F450 Quadcopter with AI Mission Interface">
+<meta property="og:description" content="Personal project — additive manufacturing, avionics and an AI interface for autonomous missions.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <div class="nav-item has-drop">
+        <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">live <span class="caret" aria-hidden="true"></span></button>
+        <div class="dropdown" role="menu">
+          <a role="menuitem" href="live.html#iss">ISS Live Tracker</a>
+          <a role="menuitem" href="live.html#launch">Next Launch</a>
+          <a role="menuitem" href="live.html#crew">Who's in Space</a>
+          <a role="menuitem" href="live.html#asteroids">Near-Earth Asteroids</a>
+          <a role="menuitem" href="live.html#weather">Space Weather</a>
+          <a role="menuitem" href="live.html#apod">Picture of the Day</a>
+          <a role="menuitem" href="live.html#epic">Earth from Space</a>
+          <a role="menuitem" href="live.html#sat">Satellite Tracker</a>
+          <a role="menuitem" href="live.html#copernicus">Air Quality Map</a>
+          <a role="menuitem" class="drop-all" href="live.html">All feeds →</a>
+        </div>
+      </div>
+      <div class="nav-item has-drop">
+        <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">work <span class="caret" aria-hidden="true"></span></button>
+        <div class="dropdown" role="menu">
+          <a role="menuitem" class="active" aria-current="page" href="work-f450.html">F450 · AI Mission Interface</a>
+          <a role="menuitem" href="work-fbg.html">FBG · CFRP Thesis</a>
+          <a role="menuitem" class="drop-all" href="index.html#work">All work →</a>
+        </div>
+      </div>
+      <a href="timeline.html">timeline</a>
+      <a href="archive.html">archive</a>
+      <a href="index.html#contact">contact</a>
+    </nav>
+    <div class="nav-right"><span class="dot"></span>OPEN TO ROLES · 2026</div>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ PROJECT HERO ============ -->
+<section class="proj-hero drone">
+  <div class="container">
+    <a class="breadcrumb" href="index.html#work">← All work</a>
+    <div class="desig">UAV.01</div>
+    <h1>F450 Quadcopter with AI Mission Interface</h1>
+    <p class="pmeta">Personal project · since October 2026 · In progress</p>
+    <div class="toolset">
+      <span>Additive manufacturing</span><span>UAV</span><span>Avionics</span><span>Autonomous missions</span><span>AI interface</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT BODY ============ -->
+<section class="proj-body bg-carbon">
+  <div class="container proj-grid">
+    <article class="proj-main">
+      <p class="lead reveal">An <strong>F450-class quadcopter</strong> built from the airframe up, with structural parts produced by <strong>additive manufacturing</strong> — and an <strong>AI chat interface</strong> that turns a mission described in plain language into a configuration the aircraft can fly on its own.</p>
+
+      <h2 class="reveal"><span class="hx">01</span> Why this project</h2>
+      <p class="reveal">Flying a drone autonomously today means translating an intention — survey this field, inspect that structure, follow this perimeter — into waypoints, altitudes, speeds and trigger conditions by hand, in a ground-control application. The translation is mechanical, repetitive and easy to get wrong, and it keeps the operator working in the language of the autopilot rather than in the language of the mission.</p>
+      <p class="reveal">This project puts a conversational layer in front of that step, on an aircraft I build myself, so that both halves — the hardware and the interface — can be changed and tested together.</p>
+
+      <h2 class="reveal"><span class="hx">02</span> Airframe &amp; additive manufacturing</h2>
+      <p class="reveal">The aircraft is built around the <strong>F450 frame</strong> in the classic quadcopter "X" configuration: four arms, four motors, two rotating one way and two the other, so that torque balances in hover. Structural parts are <strong>additively manufactured</strong>, which makes each component cheap to revise — a mount that proves too flexible or a bracket that fouls a cable can be reprinted the same day rather than redesigned around.</p>
+      <div class="callout reveal">
+        <div class="lab">Design approach</div>
+        <p>Printing the structure turns the airframe into something iterative: mass, stiffness and layout are tuned across successive prints instead of being fixed at the first build.</p>
+      </div>
+
+      <h2 class="reveal"><span class="hx">03</span> Avionics &amp; integration</h2>
+      <p class="reveal">Around the frame sit the flight controller, the electronic speed controllers that drive the motors, power distribution and the sensors the autopilot needs to know its own attitude and position. The engineering here is mostly <strong>integration</strong>: making the parts agree on power, on signal levels and on where each one physically goes, and keeping the aircraft balanced once everything is on board.</p>
+
+      <h2 class="reveal"><span class="hx">04</span> The AI mission interface</h2>
+      <p class="reveal">The distinguishing piece is a <strong>chat interface</strong> that accepts a mission in natural language and produces the configuration that flies it. The operator describes the objective; the system resolves it into the structured parameters the autopilot expects, rather than asking the operator to place every waypoint by hand.</p>
+      <ul class="reveal">
+        <li><strong>Intent to parameters</strong> — a described objective becomes waypoints, altitudes and flight parameters.</li>
+        <li><strong>Review before flight</strong> — the generated mission is shown for confirmation, so the operator stays the one who decides what the aircraft does.</li>
+        <li><strong>Bounds</strong> — the configuration has to respect the aircraft's own limits, from endurance to the envelope it can safely fly.</li>
+      </ul>
+      <div class="callout reveal">
+        <div class="lab">Note</div>
+        <p>A natural-language layer is only as safe as the checks around it. Treating its output as a proposal to be verified, never as a command to be executed blindly, is part of the design rather than an afterthought.</p>
+      </div>
+
+      <h2 class="reveal"><span class="hx">05</span> Status &amp; next steps</h2>
+      <p class="reveal">The project started in <strong>October 2026</strong> and is <strong>in progress</strong>: build, integration and interface are being developed together, one iteration at a time. The next milestones are a complete airframe with avionics integrated, then controlled tests of the generated missions, moving outdoors only once behaviour is predictable. This page will be updated as the work advances.</p>
+    </article>
+
+    <aside class="proj-aside">
+      <div class="spec-block reveal">
+        <div class="spec-top"><span>SPECIFICATION</span><span>UAV.01</span></div>
+        <dl>
+          <div><dt>Type</dt><dd>Personal project</dd></div>
+          <div><dt>Platform</dt><dd>F450 quadcopter</dd></div>
+          <div><dt>Config.</dt><dd>Quad "X"</dd></div>
+          <div><dt>Structure</dt><dd>3D printed</dd></div>
+          <div><dt>Interface</dt><dd>AI chat</dd></div>
+          <div><dt>Output</dt><dd>Mission config.</dd></div>
+          <div><dt>Started</dt><dd>Oct 2026</dd></div>
+          <div><dt>Status</dt><dd>In progress</dd></div>
+        </dl>
+      </div>
+    </aside>
+  </div>
+
+  <div class="container">
+    <nav class="proj-nav" aria-label="Project navigation">
+      <a class="pn" href="index.html#work">
+        <div class="k">Back</div>
+        <div class="t">← All work</div>
+      </a>
+      <a class="pn next" href="work-fbg.html">
+        <div class="k">Next · PRJ.01</div>
+        <div class="t">FBG · CFRP Thesis →</div>
+      </a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="container foot-inner">
+    <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
+    <span>Mission Analysis // Space &amp; Defence</span>
+    <span><a href="archive.html" style="color:var(--accent);text-decoration:none;">Newsletter archive</a></span>
+  </div>
+</footer>
+
+<!-- ============ FLOATING QUICK-CONTACT DOCK ============ -->
+<nav class="dock" aria-label="Quick contact">
+  <a href="https://wa.me/393314380217" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <span class="lbl">WhatsApp</span>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5c.1-.1.1-.3 0-.4l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3a2.7 2.7 0 0 0-.8 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.6 2.2.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>
+  </a>
+  <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=nicoladellavvocato@gmail.com&amp;su=Hello%20Nicola" target="_blank" rel="noopener" aria-label="Gmail">
+    <span class="lbl">Gmail</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7"/></svg>
+  </a>
+  <a href="https://instagram.com/nic.avv" target="_blank" rel="noopener" aria-label="Instagram">
+    <span class="lbl">Instagram</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+  </a>
+</nav>
+
+<script src="main.js" defer></script>
+</body>
+</html>
