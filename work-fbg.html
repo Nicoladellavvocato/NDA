@@ -101,7 +101,7 @@
       <h2 class="reveal"><span class="hx">02</span> Specimen and embedded fibre</h2>
       <p class="reveal">The specimen is a CFRP panel with an optical fibre carrying <strong>two gratings</strong> laid between the plies during lay-up, at <strong>93 mm</strong> and <strong>319 mm</strong> from the root. The two are distinguished by their rest wavelengths, approximately <strong>1546 nm</strong> and <strong>1562 nm</strong>, so a single fibre and a single channel read both positions.</p>
       <div class="figgrid two reveal">
-        <figure class="fig"><img src="images/thesis/specimen.jpg" alt="The finished CFRP specimen with the optical fibre pigtail and connector" loading="lazy" width="960" height="1280">
+        <figure class="fig photo"><img src="images/thesis/specimen.jpg" alt="The finished CFRP specimen with the optical fibre pigtail and connector" loading="lazy" width="960" height="1280">
           <figcaption>The finished panel. The fibre leaves the laminate at the root and ends in the optical connector.</figcaption></figure>
         <figure class="fig"><img src="images/thesis/layup.jpg" alt="Lay-up of the composite plies with the optical fibre positioned between them" loading="lazy" width="1182" height="655">
           <figcaption>Lay-up: the fibre is positioned between the plies before the bag goes on.</figcaption></figure>
@@ -135,7 +135,7 @@
       <h2 class="reveal"><span class="hx">04</span> Test setup</h2>
       <p class="reveal">The panel was clamped as a cantilever on the bench and excited with an <strong>impact hammer</strong> at four points, while a <strong>SmartScan optical interrogator</strong> recorded the Bragg wavelength of both gratings. An experimental modal test, run with an optical sensor inside the structure instead of accelerometers on its surface.</p>
       <div class="figgrid three reveal">
-        <figure class="fig"><img src="images/thesis/test-setup.jpg" alt="The specimen clamped as a cantilever on the test bench" loading="lazy" width="960" height="1280">
+        <figure class="fig photo"><img src="images/thesis/test-setup.jpg" alt="The specimen clamped as a cantilever on the test bench" loading="lazy" width="960" height="1280">
           <figcaption>The panel clamped as a cantilever.</figcaption></figure>
         <figure class="fig"><img src="images/thesis/interrogator.jpg" alt="SmartScan optical interrogator used to read the gratings" loading="lazy" width="442" height="362">
           <figcaption>The SmartScan optical interrogator.</figcaption></figure>
@@ -161,15 +161,15 @@
       <div class="dtable reveal">
         <table>
           <caption>Measured versus predicted frequencies</caption>
-          <thead><tr><th>Mode</th><th>FEM</th><th>FBG</th><th>Deviation</th></tr></thead>
+          <thead><tr><th>Mode</th><th>FEM</th><th>Measured (FBG)</th></tr></thead>
           <tbody>
-            <tr><td>1st bending</td><td>12.96 Hz</td><td>9.05 Hz</td><td class="neg">&minus;30.2%</td></tr>
-            <tr><td>2nd bending</td><td>75.79 Hz</td><td>57.1 Hz</td><td class="neg">&minus;24.7%</td></tr>
-            <tr><td>3rd bending</td><td>193.27 Hz</td><td>157.8 Hz</td><td class="neg">&minus;18.3%</td></tr>
+            <tr><td>1st bending</td><td>12.96 Hz</td><td>9.05 Hz</td></tr>
+            <tr><td>2nd bending</td><td>75.79 Hz</td><td>57.1 Hz</td></tr>
+            <tr><td>3rd bending</td><td>193.27 Hz</td><td>157.8 Hz</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="reveal">The gap is not measurement error: it is the clamp. The model assumes a perfect constraint, the bench one has residual compliance, and a compliant root lowers bending frequencies most strongly for the lowest mode — which is exactly the trend observed, from &minus;30% on the first mode to &minus;18% on the third.</p>
+      <p class="reveal">The gap is not measurement error: it is the clamp. The model assumes a perfect constraint, the bench one has residual compliance, and a compliant root lowers bending frequencies most strongly for the lowest mode. That is exactly the trend observed — the difference is largest on the first mode and narrows steadily as the mode order rises, which is the signature of a boundary condition, not of a sensor.</p>
       <p class="reveal">The <strong>torsional modes were never seen</strong>, and that is the expected answer rather than a failure: a grating aligned with the longitudinal axis reads &epsilon;<sub>11</sub>, and a torsional mode produces almost no axial strain along that centre line.</p>
       <div class="figgrid two reveal">
         <figure class="fig"><img src="images/thesis/modal-ratio.jpg" alt="Box plot of the amplitude ratio between the two gratings for the first bending mode" loading="lazy" width="1400" height="692">
@@ -177,7 +177,7 @@
         <figure class="fig"><img src="images/thesis/excitability.jpg" alt="Box plot of the excitability indicator as a function of impact point" loading="lazy" width="1400" height="714">
           <figcaption>Excitability of the 57 Hz component against impact point.</figcaption></figure>
       </div>
-      <p class="reveal">Frequency alone does not identify a mode, so the <strong>strain mode shape</strong> was checked too. Sampling the model curve at the two grating positions gives an expected amplitude ratio, independent of how hard the hammer was swung. For the first bending mode the measured ratio is <strong>4.46</strong> against <strong>3.7</strong> predicted, stable to within 1% across eight test configurations. For the third it is <strong>1.65</strong> against <strong>2.0</strong>. The second bending mode cannot be compared this way — one grating sits almost exactly on its strain node, which is itself the confirmation: the 57 Hz component appears only on the other grating.</p>
+      <p class="reveal">Frequency alone does not identify a mode, so the <strong>strain mode shape</strong> was checked too. Sampling the model curve at the two grating positions gives an expected amplitude ratio, independent of how hard the hammer was swung. For the first bending mode the measured ratio is <strong>4.46</strong> against <strong>3.7</strong> predicted, stable to within 1% across eight test configurations. For the third it is <strong>1.65</strong> against <strong>2.0</strong> predicted, with a dispersion of about 4%. The second bending mode cannot be compared this way — one grating sits almost exactly on its strain node, which is itself the confirmation: the 57 Hz component appears only on the other grating.</p>
       <p class="reveal">A last check closed the identification. Striking the displacement node of the second bending mode suppressed its spectral component roughly fivefold, with the excitability indicator dropping from a median of 0.59 to 0.08 — the behaviour a real mode must have, and one an artefact would not.</p>
 
       <h2 class="reveal"><span class="hx">07</span> What it shows</h2>

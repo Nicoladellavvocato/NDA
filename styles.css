@@ -590,9 +590,12 @@ a.tl-card:hover .more{text-decoration:underline;}
 @media(max-width:820px){.figgrid.two,.figgrid.three{grid-template-columns:1fr;}}
 .fig{margin:0;background:var(--panel);border:1px solid var(--line-2);padding:10px;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
   transition:border-color .2s ease,transform .2s ease;}
-.fig img{width:100%;height:auto;background:#fff;cursor:zoom-in;display:block;}
+.fig img{width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;object-position:center;background:#fff;cursor:zoom-in;display:block;}
+.fig.photo img{object-fit:cover;}
+.fig{display:flex;flex-direction:column;}
+.fig figcaption{margin-top:auto;padding-top:9px;}
 .fig:hover{border-color:var(--accent);transform:translateY(-2px);}
-.fig figcaption{font-family:var(--font-mono);font-size:.72rem;line-height:1.55;color:var(--t3);margin-top:9px;}
+.fig figcaption{font-family:var(--font-mono);font-size:.72rem;line-height:1.55;color:var(--t3);}
 
 .dtable{margin:20px 0 26px;overflow-x:auto;}
 .dtable table{border-collapse:collapse;width:100%;font-size:.95rem;background:var(--panel);
@@ -603,7 +606,6 @@ a.tl-card:hover .more{text-decoration:underline;}
 .dtable th{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--t1);background:rgba(79,166,212,.08);}
 .dtable td{color:var(--t2);font-variant-numeric:tabular-nums;}
 .dtable tbody tr:hover td{background:rgba(79,166,212,.06);}
-.dtable td.neg{color:var(--danger);}
 p.muted{color:var(--t3);font-size:.9rem;}
 
 /* ---------- lightbox ---------- */
