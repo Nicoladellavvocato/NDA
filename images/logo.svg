@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 64" role="img" aria-label="NDA monogram — Nicola Dell'Avvocato">
+  <title>Nicola Dell'Avvocato — NDA</title>
+  <!-- orbit -->
+  <ellipse cx="44" cy="32" rx="41" ry="15" fill="none" stroke="#2A5F80"
+           stroke-width="2.6" transform="rotate(-18 44 32)"/>
+  <!-- spacecraft on the orbit -->
+  <circle cx="81.5" cy="19.6" r="4" fill="#8FD2EE"/>
+  <!-- NDA monogram -->
+  <g fill="none" stroke="#4FA6D4" stroke-width="4.4" stroke-linecap="butt" stroke-linejoin="miter">
+    <path d="M10 45V20l14 25V20"/>
+    <path d="M33 20h4.6a11 12.5 0 0 1 0 25H33V20"/>
+    <path d="M56 45l8.6-25 8.6 25M59.4 37.2h10.4"/>
+  </g>
+</svg>

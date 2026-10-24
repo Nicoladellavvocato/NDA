@@ -532,3 +532,182 @@
       .catch(function () { feedLive("cmapDot", "cmapState", false); });
   })();
 })();
+
+/* ===================================================================
+   Interactions added site-wide: lightbox, counters, project filter,
+   pointer spotlight, scrollspy and back-to-top.
+   Everything is optional — each block exits quietly if its markup
+   is not on the page, and all of it honours prefers-reduced-motion.
+   =================================================================== */
+(function () {
+  "use strict";
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- 1. lightbox for figures ---- */
+  (function () {
+    var figs = Array.prototype.slice.call(document.querySelectorAll(".fig img"));
+    if (!figs.length) return;
+    var box = document.createElement("div");
+    box.className = "lbox";
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+    box.setAttribute("aria-label", "Figure viewer");
+    box.innerHTML =
+      '<span class="counter"></span>' +
+      '<button class="lb-close" aria-label="Close">✕</button>' +
+      '<button class="lb-prev" aria-label="Previous figure">‹</button>' +
+      '<button class="lb-next" aria-label="Next figure">›</button>' +
+      '<div><img alt=""><p class="cap"></p></div>';
+    document.body.appendChild(box);
+    var img = box.querySelector("img"), cap = box.querySelector(".cap"),
+        counter = box.querySelector(".counter"), i = 0, lastFocus = null;
+
+    function show(n) {
+      i = (n + figs.length) % figs.length;
+      var f = figs[i], fc = f.parentNode.querySelector("figcaption");
+      img.src = f.currentSrc || f.src;
+      img.alt = f.alt || "";
+      cap.textContent = fc ? fc.textContent : "";
+      counter.textContent = (i + 1) + " / " + figs.length;
+    }
+    function open(n) {
+      lastFocus = document.activeElement;
+      show(n);
+      box.classList.add("on");
+      document.body.style.overflow = "hidden";
+      box.querySelector(".lb-close").focus();
+    }
+    function close() {
+      box.classList.remove("on");
+      document.body.style.overflow = "";
+      if (lastFocus) lastFocus.focus();
+    }
+    figs.forEach(function (f, n) {
+      f.addEventListener("click", function () { open(n); });
+      f.setAttribute("tabindex", "0");
+      f.setAttribute("role", "button");
+      f.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(n); }
+      });
+    });
+    box.querySelector(".lb-close").addEventListener("click", close);
+    box.querySelector(".lb-prev").addEventListener("click", function () { show(i - 1); });
+    box.querySelector(".lb-next").addEventListener("click", function () { show(i + 1); });
+    box.addEventListener("click", function (e) { if (e.target === box) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (!box.classList.contains("on")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") show(i - 1);
+      else if (e.key === "ArrowRight") show(i + 1);
+    });
+  })();
+
+  /* ---- 2. counters that run once on first view ---- */
+  (function () {
+    var els = document.querySelectorAll("[data-count]");
+    if (!els.length) return;
+    function run(el) {
+      var target = parseFloat(el.getAttribute("data-count"));
+      var dec = parseInt(el.getAttribute("data-decimals") || "0", 10);
+      var suffix = el.getAttribute("data-suffix") || "";
+      if (reduced || isNaN(target)) { el.textContent = target.toFixed(dec) + suffix; return; }
+      var t0 = null, dur = 1100;
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * eased).toFixed(dec) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    if (!("IntersectionObserver" in window)) { els.forEach(run); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { run(en.target); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.4 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ---- 3. filter the project list ---- */
+  (function () {
+    var bar = document.querySelector("[data-filter-bar]");
+    if (!bar) return;
+    var cards = Array.prototype.slice.call(document.querySelectorAll("[data-tags]"));
+    var empty = document.querySelector(".filter-empty");
+    bar.addEventListener("click", function (e) {
+      var btn = e.target.closest(".chip");
+      if (!btn) return;
+      var tag = btn.getAttribute("data-tag");
+      bar.querySelectorAll(".chip").forEach(function (c) {
+        c.setAttribute("aria-pressed", String(c === btn));
+      });
+      var shown = 0;
+      cards.forEach(function (c) {
+        var ok = tag === "all" || (" " + c.getAttribute("data-tags") + " ").indexOf(" " + tag + " ") > -1;
+        c.hidden = !ok;
+        if (ok) shown++;
+      });
+      if (empty) empty.hidden = shown > 0;
+    });
+  })();
+
+  /* ---- 4. pointer spotlight on cards ---- */
+  (function () {
+    if (reduced || !window.matchMedia || !window.matchMedia("(hover: hover)").matches) return;
+    var cards = document.querySelectorAll(".record, .fcard, .ecard, .tl-card");
+    cards.forEach(function (c) {
+      c.addEventListener("pointermove", function (e) {
+        var r = c.getBoundingClientRect();
+        c.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        c.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
+  })();
+
+  /* ---- 5. highlight the section currently on screen ---- */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="index.html#"], .nav-links a[href^="#"]'));
+    if (!links.length || !("IntersectionObserver" in window)) return;
+    var map = {};
+    links.forEach(function (a) {
+      var id = a.getAttribute("href").split("#")[1];
+      var sec = id && document.getElementById(id);
+      if (sec) map[id] = a;
+    });
+    var ids = Object.keys(map);
+    if (!ids.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          ids.forEach(function (id) { map[id].classList.remove("here"); });
+          map[en.target.id].classList.add("here");
+        }
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    ids.forEach(function (id) { io.observe(document.getElementById(id)); });
+  })();
+
+  /* ---- 6. back to top ---- */
+  (function () {
+    var b = document.createElement("button");
+    b.className = "totop";
+    b.type = "button";
+    b.setAttribute("aria-label", "Back to top");
+    b.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 19V5m0 0l-6 6m6-6l6 6"/></svg>';
+    b.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    });
+    document.body.appendChild(b);
+    var tick = false;
+    window.addEventListener("scroll", function () {
+      if (tick) return;
+      tick = true;
+      requestAnimationFrame(function () {
+        b.classList.toggle("on", window.scrollY > 700);
+        tick = false;
+      });
+    }, { passive: true });
+  })();
+})();

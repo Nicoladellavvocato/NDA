@@ -11,6 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="images/logo.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="images/favicon-180.png">
+<meta name="theme-color" content="#00131C">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,7 +25,7 @@
 <!-- ============ NAV ============ -->
 <header class="nav">
   <div class="container nav-inner">
-    <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
+    <a class="brand" href="index.html"><svg class="brandmark" viewBox="0 0 88 64" aria-hidden="true" focusable="false"><ellipse cx="44" cy="32" rx="41" ry="15" fill="none" stroke="#2A5F80" stroke-width="2.6" transform="rotate(-18 44 32)"/><circle cx="81.5" cy="19.6" r="4" fill="#8FD2EE"/><g fill="none" stroke="#4FA6D4" stroke-width="4.4" stroke-linecap="butt"><path d="M10 45V20l14 25V20"/><path d="M33 20h4.6a11 12.5 0 0 1 0 25H33V20"/><path d="M56 45l8.6-25 8.6 25M59.4 37.2h10.4"/></g></svg><span class="brandtext">NICOLA DELL'<span class="x">A</span>VVOCATO</span></a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
       <div class="nav-item has-drop">
         <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">live <span class="caret" aria-hidden="true"></span></button>
@@ -72,49 +76,113 @@
   </div>
 </section>
 
+<!-- ============ KEY FIGURES ============ -->
+<section class="statstrip bg-myrsky">
+  <div class="container">
+    <div class="stats">
+      <div class="stat reveal"><div class="sv" data-count="5">5</div><div class="sl">modes extracted from the FEM</div></div>
+      <div class="stat reveal"><div class="sv" data-count="2">2</div><div class="sl">FBG gratings on one fibre</div></div>
+      <div class="stat reveal"><div class="sv" data-count="2.5" data-suffix=" kHz" data-decimals="1">2.5 kHz</div><div class="sl">sampling rate used for modal ID</div></div>
+      <div class="stat reveal"><div class="sv" data-count="24">24</div><div class="sl">impact acquisitions processed</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ PROJECT BODY ============ -->
-<section class="proj-body bg-carbon">
+<section class="proj-body bg-weave">
   <div class="container proj-grid">
     <article class="proj-main">
-      <p class="lead reveal">My bachelor's thesis investigates <strong>Fibre Bragg Grating (FBG)</strong> optical sensors <strong>embedded</strong> inside <strong>carbon-fibre-reinforced polymer (CFRP) sandwich structures</strong> for <strong>structural health monitoring (SHM)</strong> — combining a finite element model of the panel with an experimental modal test campaign.</p>
+      <p class="lead reveal">My bachelor's thesis puts a <strong>Fibre Bragg Grating (FBG)</strong> optical fibre <strong>inside</strong> a <strong>CFRP sandwich panel</strong> and asks a direct question: can a fibre buried between the carbon plies measure the dynamic behaviour of the structure well enough to be compared, mode by mode, with a finite element model?</p>
 
-      <h2 class="reveal"><span class="hx">01</span> Why SHM, and why FBG</h2>
-      <p class="reveal">Composite structures are central to modern aerospace because of their strength-to-weight ratio, but their damage modes — matrix cracking, delamination, fibre breakage — can develop internally and are not always visible from the surface. <strong>Structural health monitoring</strong> aims to instrument a structure so its condition can be assessed continuously, rather than only at scheduled inspections.</p>
-      <p class="reveal">Fibre Bragg gratings are well suited to this role. A grating inscribed in an optical fibre reflects a narrow wavelength band centred on a <strong>Bragg wavelength</strong>; when the fibre is strained or its temperature changes, that reflected wavelength shifts. Reading the shift turns the fibre into a precise strain (and temperature) sensor.</p>
-      <ul class="reveal">
-        <li><strong>Lightweight &amp; small</strong> — minimal mass and intrusion, important for composite parts.</li>
-        <li><strong>Immune to EMI</strong> — optical, so unaffected by electromagnetic interference.</li>
-        <li><strong>Multiplexable</strong> — many gratings along a single fibre, each at its own wavelength, giving distributed sensing.</li>
-        <li><strong>Embeddable</strong> — fibres can be bonded to the surface or integrated between plies of the laminate.</li>
-      </ul>
+      <h2 class="reveal"><span class="hx">01</span> Why embedded optical sensing</h2>
+      <p class="reveal">Composite structures carry aerospace loads at low mass, but their damage modes develop internally and are not always visible from the surface. Instrumenting a structure so that its condition can be read continuously is the aim of <strong>structural health monitoring</strong>, and optical fibres are well suited to it: light, immune to electromagnetic interference, multiplexable along a single fibre, and thin enough to be laid between plies instead of bonded on top.</p>
+      <p class="reveal">A grating inscribed in the fibre reflects a narrow band centred on its Bragg wavelength; strain shifts that wavelength. Reading the shift turns the fibre into a strain sensor that sits where the strain actually is.</p>
 
-      <h2 class="reveal"><span class="hx">02</span> Specimen &amp; embedded sensor</h2>
-      <p class="reveal">The work centres on a <strong>CFRP sandwich sample</strong> in which a Fibre Bragg Grating optical fibre was <strong>embedded directly between the carbon plies</strong> during lay-up, so that the grating experiences the strain field inside the laminate. An <strong>optical interrogator</strong> illuminates the fibre and tracks the reflected Bragg wavelength over time, providing the raw signal from which strain is derived.</p>
-      <div class="callout reveal">
-        <div class="lab">Sensing principle</div>
-        <p>A shift in the reflected Bragg wavelength maps to mechanical strain through the grating's gauge factor — turning the embedded fibre into a strain sensor that sits inside the structure rather than on its surface.</p>
+      <h2 class="reveal"><span class="hx">02</span> Specimen and embedded fibre</h2>
+      <p class="reveal">The specimen is a CFRP panel with an optical fibre carrying <strong>two gratings</strong> laid between the plies during lay-up, at <strong>93 mm</strong> and <strong>319 mm</strong> from the root. The two are distinguished by their rest wavelengths, approximately <strong>1546 nm</strong> and <strong>1562 nm</strong>, so a single fibre and a single channel read both positions.</p>
+      <div class="figgrid two reveal">
+        <figure class="fig"><img src="images/thesis/specimen.jpg" alt="The finished CFRP specimen with the optical fibre pigtail and connector" loading="lazy" width="960" height="1280">
+          <figcaption>The finished panel. The fibre leaves the laminate at the root and ends in the optical connector.</figcaption></figure>
+        <figure class="fig"><img src="images/thesis/layup.jpg" alt="Lay-up of the composite plies with the optical fibre positioned between them" loading="lazy" width="1182" height="655">
+          <figcaption>Lay-up: the fibre is positioned between the plies before the bag goes on.</figcaption></figure>
       </div>
 
       <h2 class="reveal"><span class="hx">03</span> Finite element model</h2>
-      <p class="reveal">Before testing, I built a <strong>finite element model of the panel in Abaqus/CAE</strong> to predict its <strong>natural frequencies</strong> and <strong>strain mode shapes</strong>. The model tells where the strain of each mode is concentrated and what the embedded grating should see when the panel vibrates.</p>
+      <p class="reveal">Before testing, the panel was modelled in <strong>Abaqus/CAE</strong> as a cantilever: a perfect clamp at the short edge, <strong>S4R shell elements</strong> on a regular 5&nbsp;&times;&nbsp;5&nbsp;mm seeding — 2000 elements, 2121 nodes — and a linear perturbation frequency step solved with <strong>Lanczos</strong> for the first five modes.</p>
+      <div class="figgrid three reveal">
+        <figure class="fig"><img src="images/thesis/mesh.jpg" alt="Finite element mesh of the panel in Abaqus" loading="lazy" width="1182" height="647">
+          <figcaption>Mesh: 2000 S4R shell elements.</figcaption></figure>
+        <figure class="fig"><img src="images/thesis/mode1-displacement.jpg" alt="Contour plot of the displacement field for the first bending mode" loading="lazy" width="1187" height="663">
+          <figcaption>Displacement field, 1st bending (12.96 Hz).</figcaption></figure>
+        <figure class="fig"><img src="images/thesis/mode1-strain.jpg" alt="Contour plot of the longitudinal strain for the first bending mode" loading="lazy" width="1182" height="665">
+          <figcaption>Strain field &epsilon;<sub>11</sub>, 1st bending.</figcaption></figure>
+      </div>
+      <div class="dtable reveal">
+        <table>
+          <caption>Natural frequencies predicted by the model</caption>
+          <thead><tr><th>Mode</th><th>Type</th><th>Frequency</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>1st bending</td><td>12.96 Hz</td></tr>
+            <tr><td>2</td><td>1st torsional</td><td>54.01 Hz</td></tr>
+            <tr><td>3</td><td>2nd bending</td><td>75.79 Hz</td></tr>
+            <tr><td>4</td><td>2nd torsional</td><td>168.30 Hz</td></tr>
+            <tr><td>5</td><td>3rd bending</td><td>193.27 Hz</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="reveal">The model does more than predict frequencies. Extracting &epsilon;<sub>11</sub> along a path on the longitudinal mid-line tells where each mode puts its strain, and therefore which modes the two gratings can be expected to see at all — a prediction the experiment could then confirm or contradict.</p>
 
-      <h2 class="reveal"><span class="hx">04</span> Impact-hammer test campaign</h2>
-      <p class="reveal">The instrumented panel was excited with an <strong>impact hammer</strong> while the interrogator recorded the dynamic strain measured by the embedded FBG — an experimental modal test performed with an optical sensor instead of conventional accelerometers.</p>
-
-      <h2 class="reveal"><span class="hx">05</span> Signal processing &amp; comparison</h2>
-      <p class="reveal">The recorded strain signals were processed in <strong>MATLAB</strong>:</p>
-      <ul class="reveal">
-        <li><strong>Wavelength → strain</strong> — converting the measured Bragg-wavelength shift into strain.</li>
-        <li><strong>FFT &amp; spectral analysis</strong> — moving the time histories into the frequency domain to identify the panel's resonant peaks.</li>
-        <li><strong>Model comparison</strong> — relating the measured frequencies and strain response to the Abaqus predictions.</li>
-      </ul>
-      <div class="callout reveal">
-        <div class="lab">Note</div>
-        <p>Detailed quantitative results, specimen specifications and the full experimental protocol are reported in the thesis document. The summary here is intentionally qualitative.</p>
+      <h2 class="reveal"><span class="hx">04</span> Test setup</h2>
+      <p class="reveal">The panel was clamped as a cantilever on the bench and excited with an <strong>impact hammer</strong> at four points, while a <strong>SmartScan optical interrogator</strong> recorded the Bragg wavelength of both gratings. An experimental modal test, run with an optical sensor inside the structure instead of accelerometers on its surface.</p>
+      <div class="figgrid three reveal">
+        <figure class="fig"><img src="images/thesis/test-setup.jpg" alt="The specimen clamped as a cantilever on the test bench" loading="lazy" width="960" height="1280">
+          <figcaption>The panel clamped as a cantilever.</figcaption></figure>
+        <figure class="fig"><img src="images/thesis/interrogator.jpg" alt="SmartScan optical interrogator used to read the gratings" loading="lazy" width="442" height="362">
+          <figcaption>The SmartScan optical interrogator.</figcaption></figure>
+        <figure class="fig"><img src="images/thesis/sensor-layout.jpg" alt="Diagram of the two grating positions along the panel" loading="lazy" width="870" height="307">
+          <figcaption>Grating positions: 93 mm and 319 mm from the root.</figcaption></figure>
       </div>
 
-      <h2 class="reveal"><span class="hx">06</span> Conclusions &amp; future work</h2>
-      <p class="reveal">The thesis explores embedded FBG sensing as a way to monitor composite sandwich structures from the inside, combining the low mass and electromagnetic immunity of optical fibres with the ability to read the dynamic behaviour of the panel. Natural extensions include networks of multiplexed gratings for wider spatial coverage and vibration-based damage detection on real aerospace structures.</p>
+      <h2 class="reveal"><span class="hx">05</span> From wavelength to modes</h2>
+      <p class="reveal">Each impact gives an impulsive transient followed by a damped decay. Converting wavelength shift to microstrain and averaging the spectra over repetitions gives clean peaks: the first bending mode dominates, with the higher components falling away, as expected for an impulsive excitation on a thin structure.</p>
+      <div class="figgrid two reveal">
+        <figure class="fig"><img src="images/thesis/microstrain.jpg" alt="Microstrain time histories measured by the two gratings after a tip impact" loading="lazy" width="1400" height="740">
+          <figcaption>Microstrain after a tip impact, both gratings.</figcaption></figure>
+        <figure class="fig"><img src="images/thesis/fft-peaks.jpg" alt="Amplitude spectra of the microstrain with automatic peak picking" loading="lazy" width="1400" height="721">
+          <figcaption>Averaged spectra with automatic peak picking.</figcaption></figure>
+      </div>
+      <div class="callout reveal">
+        <div class="lab">A methodological catch</div>
+        <p>Acquisitions at 625 Hz showed repeatable components at 113 and 164 Hz that are not modes at all: the real components at 512 and 461 Hz fold back across the reduced Nyquist frequency of 312.5 Hz, landing exactly there. Modal identification was therefore carried out only on the 2.5 kHz acquisitions.</p>
+      </div>
+
+      <h2 class="reveal"><span class="hx">06</span> Correlation with the model</h2>
+      <p class="reveal">Three bending modes were identified experimentally. The frequencies come out consistently <em>below</em> the model.</p>
+      <div class="dtable reveal">
+        <table>
+          <caption>Measured versus predicted frequencies</caption>
+          <thead><tr><th>Mode</th><th>FEM</th><th>FBG</th><th>Deviation</th></tr></thead>
+          <tbody>
+            <tr><td>1st bending</td><td>12.96 Hz</td><td>9.05 Hz</td><td class="neg">&minus;30.2%</td></tr>
+            <tr><td>2nd bending</td><td>75.79 Hz</td><td>57.1 Hz</td><td class="neg">&minus;24.7%</td></tr>
+            <tr><td>3rd bending</td><td>193.27 Hz</td><td>157.8 Hz</td><td class="neg">&minus;18.3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="reveal">The gap is not measurement error: it is the clamp. The model assumes a perfect constraint, the bench one has residual compliance, and a compliant root lowers bending frequencies most strongly for the lowest mode — which is exactly the trend observed, from &minus;30% on the first mode to &minus;18% on the third.</p>
+      <p class="reveal">The <strong>torsional modes were never seen</strong>, and that is the expected answer rather than a failure: a grating aligned with the longitudinal axis reads &epsilon;<sub>11</sub>, and a torsional mode produces almost no axial strain along that centre line.</p>
+      <div class="figgrid two reveal">
+        <figure class="fig"><img src="images/thesis/modal-ratio.jpg" alt="Box plot of the amplitude ratio between the two gratings for the first bending mode" loading="lazy" width="1400" height="692">
+          <figcaption>Amplitude ratio between the gratings, 1st bending: 4.46 against 3.7 predicted.</figcaption></figure>
+        <figure class="fig"><img src="images/thesis/excitability.jpg" alt="Box plot of the excitability indicator as a function of impact point" loading="lazy" width="1400" height="714">
+          <figcaption>Excitability of the 57 Hz component against impact point.</figcaption></figure>
+      </div>
+      <p class="reveal">Frequency alone does not identify a mode, so the <strong>strain mode shape</strong> was checked too. Sampling the model curve at the two grating positions gives an expected amplitude ratio, independent of how hard the hammer was swung. For the first bending mode the measured ratio is <strong>4.46</strong> against <strong>3.7</strong> predicted, stable to within 1% across eight test configurations. For the third it is <strong>1.65</strong> against <strong>2.0</strong>. The second bending mode cannot be compared this way — one grating sits almost exactly on its strain node, which is itself the confirmation: the 57 Hz component appears only on the other grating.</p>
+      <p class="reveal">A last check closed the identification. Striking the displacement node of the second bending mode suppressed its spectral component roughly fivefold, with the excitability indicator dropping from a median of 0.59 to 0.08 — the behaviour a real mode must have, and one an artefact would not.</p>
+
+      <h2 class="reveal"><span class="hx">07</span> What it shows</h2>
+      <p class="reveal">An optical fibre embedded between carbon plies returns a repeatable modal characterisation: frequencies, relative amplitudes and the presence or absence of each mode all agree with the model once the real boundary condition is taken into account. The discrepancies are informative rather than noise — they point to the clamp and to the sensing direction, not to the measurement. The natural continuations are a stiffer, better-characterised constraint, gratings placed off the centre line so torsion becomes visible, and more of them along the fibre for spatial coverage.</p>
+      <p class="muted reveal">Figures are taken from the thesis document; full specifications, protocol and numerical results are reported there.</p>
     </article>
 
     <aside class="proj-aside">
@@ -124,9 +192,11 @@
           <div><dt>Type</dt><dd>BSc thesis</dd></div>
           <div><dt>Material</dt><dd>CFRP sandwich</dd></div>
           <div><dt>Sensing</dt><dd>Embedded FBG</dd></div>
-          <div><dt>Wavelength</dt><dd>~1550 nm</dd></div>
-          <div><dt>Model</dt><dd>Abaqus/CAE</dd></div>
-          <div><dt>Method</dt><dd>Impact hammer</dd></div>
+          <div><dt>Wavelength</dt><dd>1546 / 1562 nm</dd></div>
+          <div><dt>Positions</dt><dd>93 / 319 mm</dd></div>
+          <div><dt>Model</dt><dd>Abaqus S4R</dd></div>
+          <div><dt>Excitation</dt><dd>Impact hammer</dd></div>
+          <div><dt>Sampling</dt><dd>2.5 kHz</dd></div>
           <div><dt>Analysis</dt><dd>MATLAB · FFT</dd></div>
           <div><dt>Institution</dt><dd>PoliTo</dd></div>
         </dl>
@@ -154,6 +224,7 @@
   <div class="container foot-inner">
     <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
     <span>Mission Analysis // Space &amp; Defence</span>
+    <span class="credits">Section imagery: NASA · ESA · <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Wikimedia Commons</a></span>
     <span><a href="archive.html" style="color:var(--accent);text-decoration:none;">Newsletter archive</a></span>
   </div>
 </footer>

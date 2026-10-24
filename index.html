@@ -11,6 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="images/logo.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="images/favicon-180.png">
+<meta name="theme-color" content="#00131C">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,7 +25,7 @@
 <!-- ============ NAV ============ -->
 <header class="nav">
   <div class="container nav-inner">
-    <a class="brand" href="index.html">NICOLA DELL'<span class="x">A</span>VVOCATO</a>
+    <a class="brand" href="index.html"><svg class="brandmark" viewBox="0 0 88 64" aria-hidden="true" focusable="false"><ellipse cx="44" cy="32" rx="41" ry="15" fill="none" stroke="#2A5F80" stroke-width="2.6" transform="rotate(-18 44 32)"/><circle cx="81.5" cy="19.6" r="4" fill="#8FD2EE"/><g fill="none" stroke="#4FA6D4" stroke-width="4.4" stroke-linecap="butt"><path d="M10 45V20l14 25V20"/><path d="M33 20h4.6a11 12.5 0 0 1 0 25H33V20"/><path d="M56 45l8.6-25 8.6 25M59.4 37.2h10.4"/></g></svg><span class="brandtext">NICOLA DELL'<span class="x">A</span>VVOCATO</span></a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
       <div class="nav-item has-drop">
         <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">live <span class="caret" aria-hidden="true"></span></button>
@@ -80,7 +84,7 @@
 </section>
 
 <!-- ============ PROFILE ============ -->
-<section class="block bg-launch" id="profile">
+<section class="block bg-ariane" id="profile">
   <div class="container">
     <div class="profile-grid">
       <div class="profile-prose reveal">
@@ -102,6 +106,18 @@
           <div class="last"><dt>Languages</dt><dd>IT · EN · ES</dd></div>
         </dl>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY FIGURES ============ -->
+<section class="statstrip bg-jet">
+  <div class="container">
+    <div class="stats">
+      <div class="stat reveal"><div class="sv" data-count="110" data-suffix="/110">110/110</div><div class="sl">BSc final grade, with honours</div></div>
+      <div class="stat reveal"><div class="sv" data-count="6">6</div><div class="sl">projects, challenges and research</div></div>
+      <div class="stat reveal"><div class="sv" data-count="3">3</div><div class="sl">languages worked in</div></div>
+      <div class="stat reveal"><div class="sv" data-count="2028">2028</div><div class="sl">MSc Space Engineering, expected</div></div>
     </div>
   </div>
 </section>
@@ -138,7 +154,7 @@
 </section>
 
 <!-- ============ STACK ============ -->
-<section class="block bg-bluemarble" id="stack">
+<section class="block bg-esoc2" id="stack">
   <div class="container">
     <div class="block-head reveal">
       <span class="eyebrow">Technical Stack</span>
@@ -167,7 +183,7 @@
 </section>
 
 <!-- ============ WORK ============ -->
-<section class="block bg-jet" id="work">
+<section class="block bg-tunnel" id="work">
   <div class="container">
     <div class="block-head reveal">
       <span class="eyebrow">Selected Work</span>
@@ -175,7 +191,16 @@
       <p>Company-led challenges, experimental research and team projects — the work behind the profile. Open the linked cards for the full case study.</p>
     </div>
 
-    <div class="record static reveal">
+    <div class="filters reveal" data-filter-bar role="group" aria-label="Filter projects by topic">
+      <button type="button" class="chip" data-tag="all" aria-pressed="true">All</button>
+      <button type="button" class="chip" data-tag="space" aria-pressed="false">Space</button>
+      <button type="button" class="chip" data-tag="uav" aria-pressed="false">UAV</button>
+      <button type="button" class="chip" data-tag="structures" aria-pressed="false">Structures</button>
+      <button type="button" class="chip" data-tag="simulation" aria-pressed="false">Simulation</button>
+      <button type="button" class="chip" data-tag="team" aria-pressed="false">Team</button>
+    </div>
+
+    <div class="record static reveal" data-tags="simulation structures">
       <div class="desig">CHL.01</div>
       <div>
         <h3>Challenge@PoliTO by Leonardo — Simulation &amp; Experimental Validation</h3>
@@ -186,7 +211,7 @@
       <div class="metric"><div class="big">2027</div><div class="lab">upcoming · Leonardo</div></div>
     </div>
 
-    <a class="record reveal" href="work-f450.html">
+    <a class="record reveal" href="work-f450.html" data-tags="uav">
       <div class="desig">UAV.01</div>
       <div>
         <h3>F450 Quadcopter with AI Mission Interface <span class="go">→</span></h3>
@@ -197,7 +222,7 @@
       <div class="metric"><div class="big">F450</div><div class="lab">design · build · AI</div></div>
     </a>
 
-    <div class="record static reveal">
+    <div class="record static reveal" data-tags="space">
       <div class="desig">HCK.01</div>
       <div>
         <h3>CASSINI Hackathon — EU Space for Peace and Resilience</h3>
@@ -208,7 +233,7 @@
       <div class="metric"><div class="big">2026</div><div class="lab">in progress</div></div>
     </div>
 
-    <a class="record reveal" href="work-fbg.html">
+    <a class="record reveal" href="work-fbg.html" data-tags="structures simulation">
       <div class="desig">PRJ.01</div>
       <div>
         <h3>Embedded FBG Sensors for SHM of CFRP Sandwich Structures <span class="go">→</span></h3>
@@ -219,7 +244,7 @@
       <div class="metric"><div class="big">FBG</div><div class="lab">embedded SHM · modal</div></div>
     </a>
 
-    <div class="record static reveal">
+    <div class="record static reveal" data-tags="structures">
       <div class="desig">RES.01</div>
       <div>
         <h3>Dynamic Characterisation of 3D-Printed Metamaterials <span class="go">(Erasmus project)</span></h3>
@@ -230,7 +255,7 @@
       <div class="metric"><div class="big">DMA</div><div class="lab">damping vs frequency</div></div>
     </div>
 
-    <div class="record static reveal">
+    <div class="record static reveal" data-tags="team">
       <div class="desig">TEAM.01</div>
       <div>
         <h3>INTRAPRENDENTI — Smart Infrastructures <span class="go">(Honour School)</span></h3>
@@ -241,11 +266,13 @@
       <div class="metric"><div class="big">TEAM</div><div class="lab">multidisciplinary</div></div>
     </div>
 
+
+    <p class="filter-empty" hidden>No project matches this filter.</p>
   </div>
 </section>
 
 <!-- ============ EDUCATION ============ -->
-<section class="block bg-bluemarble" id="education">
+<section class="block bg-vegasentinel" id="education">
   <div class="container">
     <div class="block-head reveal">
       <span class="eyebrow">Education · Experience · Languages</span>
@@ -324,7 +351,7 @@
 </section>
 
 <!-- ============ NEWSLETTER ============ -->
-<section class="news bg-launch" id="newsletter">
+<section class="news bg-esoc3" id="newsletter">
   <div class="container">
     <div class="news-card reveal">
       <span class="corner tl"></span><span class="corner br"></span>
@@ -383,6 +410,7 @@
   <div class="container foot-inner">
     <span>© <span data-year>2026</span> Nicola Dell'Avvocato</span>
     <span>Mission Analysis // Space &amp; Defence</span>
+    <span class="credits">Section imagery: NASA · ESA · <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Wikimedia Commons</a></span>
     <span><a href="archive.html" style="color:var(--accent);text-decoration:none;">Newsletter archive</a></span>
   </div>
 </footer>
