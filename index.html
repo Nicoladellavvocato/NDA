@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="images/favicon-180.png">
 <meta name="theme-color" content="#00131C">
@@ -25,7 +24,7 @@
 <!-- ============ NAV ============ -->
 <header class="nav">
   <div class="container nav-inner">
-    <a class="brand" href="index.html" aria-label="Nicola Dell'Avvocato — home"><svg class="brandmark" viewBox="0 -5 272 66" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="butt"><path d="M6 50V8l34 42V8"/><path d="M64 8h12a21 21 0 0 1 0 42H64V8"/><path d="M120 50l21-42 21 42"/><path d="M130 34h22"/></g><path d="M170 46C196 46 222 36 266 10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" opacity=".85"/><circle cx="266" cy="10" r="4.6" fill="currentColor"/></svg></a>
+    <a class="brand" href="index.html" aria-label="Nicola Dell'Avvocato — home"><img class="brandmark" src="images/logo.png" alt="" width="600" height="491" decoding="async"></a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
       <div class="nav-item has-drop">
         <button type="button" class="drop-trigger" aria-haspopup="true" aria-expanded="false">live <span class="caret" aria-hidden="true"></span></button>
@@ -201,7 +200,7 @@
       <button type="button" class="chip" data-tag="team" aria-pressed="false">Team</button>
     </div>
 
-    <div class="record static reveal" data-tags="simulation structures">
+    <div class="record static lead reveal" data-tags="simulation structures">
       <div class="desig">CHL.01</div>
       <div>
         <h3>Challenge@PoliTO by Leonardo — Simulation &amp; Experimental Validation</h3>
@@ -212,18 +211,7 @@
       <div class="metric"><div class="big">2027</div><div class="lab">upcoming · Leonardo</div></div>
     </div>
 
-    <a class="record reveal" href="work-f450.html" data-tags="uav">
-      <div class="desig">UAV.01</div>
-      <div>
-        <h3>F450 Quadcopter with AI Mission Interface <span class="go">→</span></h3>
-        <div class="meta">PERSONAL PROJECT · OCT 2026 – PRESENT · IN PROGRESS</div>
-        <p>Design and build of an F450-class quadcopter with additively manufactured structural parts — airframe, avionics and software — with an AI chat interface that translates natural-language input into autonomous mission configurations.</p>
-        <div class="toolset"><span>Additive manufacturing</span><span>UAV</span><span>Avionics</span><span>Autonomous missions</span><span>AI interface</span></div>
-      </div>
-      <div class="metric"><div class="big">F450</div><div class="lab">design · build · AI</div></div>
-    </a>
-
-    <div class="record static reveal" data-tags="space">
+    <div class="record static lead reveal" data-tags="space">
       <div class="desig">HCK.01</div>
       <div>
         <h3>CASSINI Hackathon — EU Space for Peace and Resilience</h3>
@@ -245,7 +233,18 @@
       <div class="metric"><div class="big">FBG</div><div class="lab">embedded SHM · modal</div></div>
     </a>
 
-    <div class="record static reveal" data-tags="structures">
+    <a class="record reveal" href="work-f450.html" data-tags="uav">
+      <div class="desig">UAV.01</div>
+      <div>
+        <h3>F450 Quadcopter — Autonomous and Indoor Flight <span class="go">→</span></h3>
+        <div class="meta">PERSONAL PROJECT · OCT 2026 – PRESENT · IN PROGRESS</div>
+        <p>Design and build of an F450-class quadcopter with additively manufactured structural parts — airframe, avionics and software — with an AI chat interface that translates natural-language input into autonomous mission configurations.</p>
+        <div class="toolset"><span>Additive manufacturing</span><span>UAV</span><span>Avionics</span><span>Autonomous missions</span><span>AI interface</span></div>
+      </div>
+      <div class="metric"><div class="big">F450</div><div class="lab">design · build · AI</div></div>
+    </a>
+
+    <div class="record static slim reveal" data-tags="structures">
       <div class="desig">RES.01</div>
       <div>
         <h3>Dynamic Characterisation of 3D-Printed Metamaterials <span class="go">(Erasmus project)</span></h3>
@@ -256,7 +255,7 @@
       <div class="metric"><div class="big">DMA</div><div class="lab">damping vs frequency</div></div>
     </div>
 
-    <div class="record static reveal" data-tags="team">
+    <div class="record static slim reveal" data-tags="team">
       <div class="desig">TEAM.01</div>
       <div>
         <h3>INTRAPRENDENTI — Smart Infrastructures <span class="go">(Honour School)</span></h3>
@@ -281,6 +280,12 @@
       <p>The full path, from high school to now — <a href="timeline.html" class="tlink">see the timeline <span class="arr">→</span></a></p>
     </div>
     <div class="edu">
+      <div class="ecard lead reveal">
+        <div class="yr">OCT 2026 — PRESENT · EXPERIENCE</div>
+        <h3>System Engineer — ICARUS PoliTo</h3>
+        <div class="inst">Politecnico di Torino · student team · Turin, Italy</div>
+        <p>System engineering on RA (Record Aircraft), the team's solar-powered fixed-wing UAV designed for long-endurance flight on solar energy alone — working across requirements, subsystem interfaces and verification in a large multidisciplinary student team.</p>
+      </div>
       <div class="ecard reveal">
         <div class="yr">SEP 2026 — JUL 2028 (EXPECTED)</div>
         <h3>MSc Space Engineering</h3>
@@ -299,13 +304,13 @@
         <div class="inst">Universidade da Coruña · Ferrol, Spain</div>
         <p>Exchange semester including research on the dynamic characterisation of 3D-printed metamaterials for aeroelastic applications.</p>
       </div>
-      <div class="ecard reveal">
+      <div class="ecard min reveal">
         <div class="yr">SEP 2025 — JUL 2028</div>
         <h3>Collegio Universitario Renato Einaudi</h3>
         <div class="inst">Merit-based university college · Turin, Italy</div>
         <p>Member of the merit-based residential college, following its supplementary training programme.</p>
       </div>
-      <div class="ecard reveal">
+      <div class="ecard min reveal">
         <div class="yr">SEP 2018 — JUL 2023 · DIPLOMA 100/100</div>
         <h3>Liceo Scientifico — Cambridge International</h3>
         <div class="inst">"Federico II di Svevia" · Altamura, Italy</div>
@@ -317,31 +322,26 @@
         <div class="inst">Native · professional working · limited working</div>
         <p>B2 First (Cambridge) · B2 DELE Spanish (Universidade da Coruña) · BLSD/AED (Croce Rossa Italiana) · Lifeguard certification (FIN) · selected for Challenge@PoliTO by Leonardo.</p>
       </div>
-      <div class="ecard reveal">
-        <div class="yr">OCT 2026 — PRESENT · EXPERIENCE</div>
-        <h3>System Engineer — ICARUS PoliTo</h3>
-        <div class="inst">Politecnico di Torino · student team · Turin, Italy</div>
-        <p>System engineering on RA (Record Aircraft), the team's solar-powered fixed-wing UAV designed for long-endurance flight on solar energy alone — working across requirements, subsystem interfaces and verification in a large multidisciplinary student team.</p>
-      </div>
-      <div class="ecard reveal">
+      
+      <div class="ecard min reveal">
         <div class="yr">SEP 2026 — PRESENT · EXPERIENCE</div>
         <h3>Computer Laboratory Technician</h3>
         <div class="inst">Politecnico di Torino · Turin, Italy · part-time</div>
         <p>Technical support in the University's computer laboratories (LAIB), assisting students and staff with workstations and laboratory software.</p>
       </div>
-      <div class="ecard reveal">
+      <div class="ecard min reveal">
         <div class="yr">SEP 2026 — PRESENT · EXPERIENCE</div>
         <h3>Front Desk Receptionist</h3>
         <div class="inst">Collegio Universitario Renato Einaudi · Turin, Italy · part-time</div>
         <p>Front desk shifts at the merit-based residential college: reception, assistance to residents and visitors, and access management.</p>
       </div>
-      <div class="ecard reveal">
+      <div class="ecard min reveal">
         <div class="yr">JUN — OCT 2026 · EXPERIENCE</div>
         <h3>Staff — Wave by Vento</h3>
         <div class="inst">Formerly Italian Tech Week · Turin, Italy</div>
         <p>Part of the organising staff of one of Europe's leading technology conferences, bringing together founders, investors and technology leaders.</p>
       </div>
-      <div class="ecard reveal">
+      <div class="ecard min reveal">
         <div class="yr">JUN — SEP 2023 · EXPERIENCE</div>
         <h3>Head Lifeguard</h3>
         <div class="inst">Tenuta Giannini · Sannicandro di Bari, Italy</div>
