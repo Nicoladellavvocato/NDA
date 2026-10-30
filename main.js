@@ -711,3 +711,140 @@
     }, { passive: true });
   })();
 })();
+
+/* ===================================================================
+   Mission bar — a flight profile flown by scrolling.
+   The page maps to the ascent: the top of the page is liftoff, the
+   bottom is landing. Speed, altitude, g-load, the T+ clock and the
+   event track all follow the scroll position, on every page.
+   =================================================================== */
+(function () {
+  "use strict";
+  if (document.getElementById("hud")) return;
+
+  /* Falcon-9-like keyframes: [t (s), speed (km/h), altitude (km), g] */
+  var KF = [
+    [0,       0,     0.0,  1.2],
+    [20,    320,     1.1,  1.5],
+    [72,   1520,    12.4,  2.1],
+    [110,  3450,    28.6,  2.7],
+    [148,  8280,    68.4,  3.3],
+    [152,  8190,    71.0,  0.2],
+    [200,  7420,   108.5,  0.1],
+    [250,  6580,   131.2,  0.1],
+    [330,  5600,    96.7,  0.3],
+    [390,  4480,    54.9,  2.5],
+    [430,  1980,    21.3,  3.1],
+    [470,    310,     2.2,  2.0],
+    [500,      0,     0.0,  1.0]
+  ];
+  var T_END = KF[KF.length - 1][0];
+
+  var EVENTS = [
+    { k: "Liftoff",   t: 0 },
+    { k: "Max Q",     t: 72 },
+    { k: "Stage sep", t: 148 },
+    { k: "Fairing",   t: 200 },
+    { k: "Entry",     t: 390 },
+    { k: "Landing",   t: 500 }
+  ];
+
+  function lerpAt(t) {
+    if (t <= KF[0][0]) return KF[0].slice(1);
+    for (var i = 1; i < KF.length; i++) {
+      if (t <= KF[i][0]) {
+        var a = KF[i - 1], b = KF[i];
+        var f = (t - a[0]) / (b[0] - a[0]);
+        return [a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f, a[3] + (b[3] - a[3]) * f];
+      }
+    }
+    return KF[KF.length - 1].slice(1);
+  }
+
+  var bar = document.createElement("div");
+  bar.className = "hud";
+  bar.id = "hud";
+  bar.setAttribute("role", "complementary");
+  bar.setAttribute("aria-label", "Flight profile, driven by the scroll position");
+  bar.innerHTML =
+    '<div class="hud-in">' +
+      '<div class="g"><span class="gl">Speed</span><span class="gv" id="hudSpeed">0</span><span class="gu">km/h</span></div>' +
+      '<div class="sep"></div>' +
+      '<div class="g"><span class="gl">Altitude</span><span class="gv" id="hudAlt">0.0</span><span class="gu">km</span></div>' +
+      '<div class="sep"></div>' +
+      '<div class="clock">' +
+        '<div class="ct"><span class="tp">T+</span><span class="ctv" id="hudClock">00:00:00</span>' +
+          '<span class="phase" id="hudPhase">Startup</span></div>' +
+        '<div class="track" id="hudTrack"><span class="fill" id="hudFill"></span></div>' +
+      '</div>' +
+      '<div class="sep"></div>' +
+      '<div class="g opt"><span class="gl">G-force</span><span class="gv" id="hudG">1.2</span><span class="gu">g</span></div>' +
+      '<button class="hud-toggle" id="hudToggle" type="button" aria-expanded="true" aria-label="Hide the mission bar">▾</button>' +
+    '</div>';
+  document.body.appendChild(bar);
+
+  /* event markers, positioned along the track by their time */
+  var track = document.getElementById("hudTrack");
+  EVENTS.forEach(function (e) {
+    var m = document.createElement("span");
+    m.className = "mk";
+    m.style.left = (e.t / T_END * 100) + "%";
+    m.innerHTML = '<i></i><b>' + e.k + "</b>";
+    e.el = m;
+    track.appendChild(m);
+  });
+
+  var elS = document.getElementById("hudSpeed"), elA = document.getElementById("hudAlt"),
+      elG = document.getElementById("hudG"), elC = document.getElementById("hudClock"),
+      elP = document.getElementById("hudPhase"), fill = document.getElementById("hudFill");
+
+  function pad(n, w) { n = String(Math.floor(n)); while (n.length < w) n = "0" + n; return n; }
+  function render(p) {
+    var t = p * T_END, v = lerpAt(t);
+    elS.textContent = Math.round(v[0]).toLocaleString("en-GB");
+    elA.textContent = v[1].toFixed(1);
+    elG.textContent = v[2].toFixed(1);
+    elC.textContent = pad(t / 3600, 2) + ":" + pad((t / 60) % 60, 2) + ":" + pad(t % 60, 2);
+    fill.style.width = (p * 100) + "%";
+    var phase = EVENTS[0];
+    EVENTS.forEach(function (e) {
+      var done = t >= e.t;
+      e.el.classList.toggle("done", done);
+      if (done) phase = e;
+    });
+    EVENTS.forEach(function (e) { e.el.classList.toggle("now", e === phase); });
+    elP.textContent = phase.k;
+  }
+
+  function progress() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return 0;
+    return Math.min(Math.max(window.scrollY / h, 0), 1);
+  }
+
+  var queued = false;
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { render(progress()); queued = false; });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  render(progress());
+
+  /* collapse, remembered between pages */
+  (function () {
+    var btn = document.getElementById("hudToggle");
+    function setDown(down) {
+      bar.classList.toggle("down", down);
+      document.body.classList.toggle("hud-down", down);
+      btn.setAttribute("aria-expanded", String(!down));
+      btn.setAttribute("aria-label", down ? "Show the mission bar" : "Hide the mission bar");
+      try { localStorage.setItem("hudDown", down ? "1" : "0"); } catch (e) {}
+    }
+    var saved = "0";
+    try { saved = localStorage.getItem("hudDown") || "0"; } catch (e) {}
+    if (saved === "1") setDown(true);
+    btn.addEventListener("click", function () { setDown(!bar.classList.contains("down")); });
+  })();
+})();
